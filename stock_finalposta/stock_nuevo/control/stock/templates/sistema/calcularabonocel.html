@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block titulo %} Abonos {% endblock%}
+
+{% block contenido %}
+
+{% load static %}
+
+<style>
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: moveInTop 1s ease-out;
+    margin: 30px;
+   
+  }
+  
+
+  .row {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+  }
+
+
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  
+  }
+  .black-placeholder::placeholder {
+    color: black;
+  }
+  a{
+    text-decoration:none;
+    color:black;
+  }
+</style>
+<style>
+    .table-container {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table-container th, .table-container td {
+        padding: 5px 10px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    .table-container th {
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .table-container td:first-child {
+        position: relative;
+    }
+
+    .divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 2px;
+        background-color: black;
+        transform: translateX(-50%);
+    }
+
+    .tel-number {
+        font-size: 14px;
+        text-align: right;
+    }
+</style>
+
+<div class="d-flex justify-content-between">
+    <a class="btn btn-secondary font-weight-bold" href="{% url 'reportes_total' %}" style="width: 65px; font-size:12px">Volver</a>
+      <form style="line-height: 1.2;" action="{% url 'calcularabonocel' %}" method="get" class="form-inline ">
+        <div class="input-group" style="max-width: 250px; width: 90%;">
+          <select class="form-control form-control-sm " id="lablpg" name="lablpg">
+            <option value="" selected disabled >Selecciona una sucursal</option>
+            <option value="IQSA CORDOBA">IQSA CORDOBA</option>
+            <option value="AUTOROUTE">AUTOROUTE</option>
+            <option value="AVENUE ROSARIO">AVENUE ROSARIO</option>
+            <option value="AILES CABA">AILES CABA</option>
+            <option value="AVENUE CORDOBA">AVENUE CORDOBA</option>
+            <option value="AMSA MOTORRAD">AMSA MOTORRAD</option>
+            <option value="AMSA BMW">AMSA BMW</option>
+            <option value="AMSA MINI">AMSA MINI</option>
+            <option value="CHEVENT VENADO TUERTO">CHEVENT VENADO TUERTO</option>
+            <option value="AVENUE DS">AVENUE DS</option>
+            <option value="CHEVENT SALADILLO">CHEVENT SALADILLO</option>
+            <option value="VOLANT URQUIZA">VOLANT URQUIZA</option>
+            <option value="VOLANT CENTRAL">VOLANT CENTRAL</option>
+          </select>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary btn-sm ">
+              <span class="material-symbols-outlined  " style="color:grey;">search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+</div>
+
+
+
+<div class="row" style="--bs-gutter-x: 0.4rem;">
+<div class="col-md-3">
+    <!-- Primera tabla -->
+    <div id="tabla-ailes" class="card mt-1">
+        <div class="card-header" style="text-align: center;">
+            <h6 style=" font-size: 12px;">Lineas contratadas</h6>
+        </div>
+        <div class="table-responsive table-container" style="height: auto; overflow-y: auto;">
+            <table style="width: 100%; font-size: 11px; font-weight: 100%;">
+    <tbody>
+        <tr>
+            <td>IQSA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_iqsa}}</td>
+        </tr>
+
+        <tr>
+            <td>CHEVENT SALADILLO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_chevent_saladillo }}</td>
+        </tr>
+        <tr>
+            <td>AUTOROUTE:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_autoroute }}</td>
+        </tr>
+        <tr>
+            <td>AVENUE CORDOBA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_avenue_cordoba }}</td>
+        </tr>
+        <tr>
+            <td>VOLANT URQUIZA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_volant_urquiza }}</td>
+        </tr>
+        <tr>
+            <td>AMSA BMW:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_amsa_bmw }}</td>
+        </tr>
+        <tr>
+            <td>CHEVENT VENADO TUERTO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_chevent_venado_tuerto }}</td>
+        </tr>
+        <tr>
+            <td>VOLANT CENTRAL:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_volant_central }}</td>
+        </tr>
+        <tr>
+            <td>DS:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_ds }}</td>
+        </tr>
+        <tr>
+            <td>AVENUE ROSARIO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_avenue_rosario }}</td>
+        </tr>
+        <tr>
+            <td>AILES CABA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_ailes_caba }}</td>
+        </tr>
+        <tr>
+            <td>CALL CENTER:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ tel_call_center }}</td>
+        </tr>
+    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="col-md-9">
+        <!-- Segunda tabla -->
+        <div class="card mt-1">
+            <div class="card-header" style="text-align: center;">
+                Lista de telefonos: {{ total }} Precio total: ${{ totalpre_con_separadores }}
+            </div>
+            <div class="table-responsive" style="max-height: 330px; overflow-y: auto;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="background-color: rgb(240, 240, 240); font-size:11px; color:rgb(0, 0, 0);">
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;">NOMBRE</th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;">AREA</th>
+                            {% comment %} <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;">IMEI O SN</th> {% endcomment %}
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;">NUMERO</th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;">EMPRESA ABONO</th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;">PLAN</th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;"></th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;"></th>
+                            <th scope="col" style="text-align: center; font-size: 9px; overflow-x: auto;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for telefonos in page_obj_telefonos %}
+                        <tr class="align-middle" style="background-color: white;  font-size: 11px;">
+                            <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefonos.usuario.nombre_apellido }}</td>
+                            <td style="text-align: left; font-size: 5x; overflow-x: auto;">{{ telefonos.usuario.area }}</td>
+                            <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefonos.numero }}</td>
+                            {% comment %} <td style="text-align: center; font-size: 10px; overflow-x: auto;">{{ te</td> {% endcomment %}
+                            <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefonos.empresa_abono }}</td>
+                            <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefonos.plan }}</td>
+                            <td style="text-align: left; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altastel' telefonos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+                            </td>
+                            <td style="text-align: center; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_editar' telefonos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+                            </td>
+                            <td style="text-align: center; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_eliminar' telefonos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+   </div>
+</div></div><div class="form-group row text-center mt-3">
+  <div class="col-md-12">
+    <a href="{% url 'descargar_excel_abono' %}?q={{ request.GET.q }}&lablpg={{ request.GET.lablpg }}" class="btn btn-success">Descargar Excel</a>
+     </div>
+</div>
+
+{% endblock %}  

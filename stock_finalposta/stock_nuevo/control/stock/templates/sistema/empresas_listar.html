@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+{% block titulo %} Lista de empresas {% endblock%}
+{% block contenido %}
+
+<a class="btn btn-secondary font-weight-bold mb-2" href="{% url 'inicio' %}" style="width: 145px;">Volver</a>
+
+<div class="card" style="background-color: white;">
+  <div class="" style="text-align: left; background:white;" >
+    <b>Empresa seleccionada:</b> <span style="color:red;">{{ empresa_seleccionada.nombre }}</span> <br>
+    Telefonos: <span style="color:red;">{{ totaltel }}.</span> <br>
+    Impresoras: <span style="color:red;">{{ totalimp }}.</span> <br>
+    Notebooks: <span style="color:red;">{{ totalnote }}.</span> <br>
+    Pcs: <span style="color:red;">{{ totalpcs }}.</span> <br>
+  </div>
+</div>
+<div class="form-group row justify-content-center align-items-center mb-5 mt-5">
+  <label for="areaSelect" class="col-md-2 col-form-label">Buscar por area:</label>
+  <div class="col-md-4 d-flex">
+    <form action="" method="get" class="d-flex">
+      <select id="areaSelect" class="form-control" name="area">
+        <option value="">Todas las areas</option>
+        {% for area_key, area_value in areas_todas %}
+          <option value="{{ area_key }}" {% if area_key == area_select %}selected="selected"{% endif %}>{{ area_value }}</option>
+        {% endfor %}
+      </select>
+      <input type="hidden" name="empresa_id" value="{{ empresa_seleccionada.id }}">
+      <button type="submit" class="btn btn-secondary ml-2">Filtrar</button>
+    </form>
+  </div>
+</div>
+<br>
+
+{% comment %} NAVEGACION ANIMADA {% endcomment %}
+
+<div id="tabla" class="table-responsive" style="margin-bottom: 700px; background: rgb(185, 180, 180);">
+  <ul class="nav justify-content-center">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#telefonos-tabla" style="color: black;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#impresoras-tabla" style="color: black;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#notebooks-tabla" style="color: black;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#pcs-tabla" style="color: black;">PC</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#" style="color: black;">VOLVER</a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .nav {
+    
+    padding: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-1 {
+    padding-top: 15px;
+    background: rgb(185, 180, 180);
+  }
+
+  .link-1 {
+    transition: 0.3s ease;
+    background:rgb(185, 180, 180);
+    color: #ffffff;
+    font-size: 15px;
+    text-decoration: none;
+    border-top: 4px solid rgb(185, 180, 180);
+    border-bottom: 4px solid rgb(165, 164, 164);
+    padding: 12px 0;
+    margin: 0 20px;
+  }
+
+  .link-1:hover {
+    border-top: 4px solid #ffffff;
+    border-bottom: 4px solid #ffffff;
+    padding: 6px 0;
+  }
+</style>
+{% comment %} FIN DEL NAV ANIMADO  {% endcomment %}
+
+{% comment %} NAV TELEFONO {% endcomment %}
+<div id="telefonos-tabla" class="table-responsive" style="margin-bottom: 10px; background: rgb(185, 180, 180);">
+  <ul class="nav justify-content-center">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#telefonos-tabla" style="color: black;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#impresoras-tabla" style="color: black;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#notebooks-tabla" style="color: black;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#pcs-tabla" style="color: black;">PC</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#" style="color: black;">VOLVER</a>
+    </li>
+  </ul>
+</div>
+{% comment %} TABLA TELEFONO {% endcomment %}
+
+  <div class="table-responsive mt-3" style="max-height: 425px; overflow-y: auto; margin-bottom:700px;">
+    <center><h2>Telefonos</h2></center>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style="background-color: rgb(165, 164, 164); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">NOMBRE</th>
+          <th scope="col" style="text-align: center;">APELLIDO</th>
+          <th scope="col" style="text-align: center;">NUMERO</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          <th scope="col" style="text-align: center;">MARCA</th>
+          <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+          {% comment %} <th scope="col" style="text-align: center;">IMEI O SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center;">ACCESORIO</th>
+          <th scope="col" style="text-align: center;">PLAN</th>
+          <th scope="col" style="text-align: center;">ANTIGUEDAD</th>
+          <th scope="col" style="text-align: center;">EMPRESA ABONO</th>
+          <th scope="col" style="text-align: center;">COSTO DEL PLAN</th>
+          <th scope="col" style="text-align: center;">FECHA DEVOLUCION</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for telefono in page_obj_usuarios %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: center;">{{ telefono.usuario.nombre }}</td>
+          <td style="text-align: center;">{{ telefono.usuario.apellido }}</td>
+          <td style="text-align: center;">{{ telefono.numero }}</td>
+          <td style="text-align: center;">{{ telefono.modelo }}</td>
+          <td style="text-align: center;">{{ telefono.marca }}</td>
+          <td style="text-align: center;">{{ telefono.fecha_entrada }}</td>
+          {% comment %} <td style="text-align: center;">{{ telefono.imei_o_sn }}</td> {% endcomment %}
+          <td style="text-align: center;">{{ telefono.accesorio }}</td>
+          <td style="text-align: center;">{{ telefono.plan }}</td>
+          <td style="text-align: center;">{{ telefono.antiguedad }}</td>
+          <td style="text-align: center;">{{ telefono.empresa_abono }}</td>
+          <td style="text-align: center;">{{ telefono.costo_plan }}</td>  
+          <td style="text-align: center;">{{ telefono.fecha_devolucion }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'telefonos_editar' telefono.id %}">Editar</a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'telefonos_eliminar' telefono.id %}">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% comment %} NAV NOTEBOOK {% endcomment %}
+ 
+  <div id="notebooks-tabla" class="table-responsive" style="margin-bottom: 10px; background: rgb(185, 180, 180);">
+    
+    <ul class="nav justify-content-center">
+      <li class="nav-1 nav-item">
+        <a class="link-1 nav-link active" aria-current="page" href="#telefonos-tabla" style="color: black;">TELEFONOS</a>
+      </li>
+      <li class="nav-1 nav-item">
+        <a class="link-1 nav-link" href="#impresoras-tabla" style="color: black;">IMPRESORAS</a>
+      </li>
+      <li class="nav-1 nav-item">
+        <a class="link-1 nav-link" href="#notebooks-tabla" style="color: black;">NOTEBOOKS</a>
+      </li>
+      <li class="nav-1 nav-item">
+        <a class="link-1 nav-link" href="#pcs-tabla" style="color: black;">PC</a>
+      </li>
+      <li class="nav-1 nav-item">
+        <a class="link-1 nav-link active" aria-current="page" href="#" style="color: black;">VOLVER</a>
+      </li>
+    </ul>
+  </div>
+
+{% comment %} TABLA NOTEBOOK {% endcomment %}
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto; margin-bottom:700px;">
+    <center><h2>Notebook</h2><center>
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size:14px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">NOMBRE</th>
+          <th scope="col" style="text-align: center;">APELLIDO</th>
+          <th scope="col" style="text-align: center;">MARCA</th>
+          <th scope="col" style="text-align: center;">PROCESADOR</th>
+          <th scope="col" style="text-align: center;">RAM</th>
+          <th scope="col" style="text-align: center;">DISCO</th>
+          <th scope="col" style="text-align: center;">MONITOR</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center;">ANTIGUEDAD</th>
+          <th scope="col" style="text-align: center;">FECHA DE DEVOLUCION</th>
+          <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for notebook in page_obj_usuarios1 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: center;">{{ notebook.usuario.nombre }}</td>
+          <td style="text-align: center;">{{ notebook.usuario.apellido }}</td>
+          <td style="text-align: center;">{{ notebook.marca }}</td>
+          <td style="text-align: center;">{{ notebook.procesador }}</td>
+          <td style="text-align: center;">{{ notebook.ram }}</td>
+          <td style="text-align: center;">{{ notebook.disco }}</td>
+          <td style="text-align: center;">{{ notebook.monitor }}</td>
+          <td style="text-align: center;">{{ notebook.modelo }}</td>
+          {% comment %} <td style="text-align: center;">{{ notebook.sn }}</td> {% endcomment %}
+          <td style="text-align: center;">{{ notebook.antiguedad }}</td>
+          <td style="text-align: center;">{{ notebook.fecha_devolucion }}</td>
+          <td style="text-align: center;">{{ notebook.fecha_entrada }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'notebooks_editar' notebook.id %}">Editar</a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'notebooks_eliminar' notebook.id %}">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% comment %} NAV PCS {% endcomment %}
+
+<div id="pcs-tabla" class="table-responsive" style="margin-bottom: 10px; background: rgb(185, 180, 180);">
+  
+  <ul class="nav justify-content-center">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#telefonos-tabla" style="color: black;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#impresoras-tabla" style="color: black;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#notebooks-tabla" style="color: black;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#pcs-tabla" style="color: black;">PC</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#" style="color: black;">VOLVER</a>
+    </li>
+  </ul>
+</div>
+
+{% comment %} TABLA PCS {% endcomment %}
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto; margin-bottom:700px;">
+    <center><h2>PCs </h2></center>
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size:14px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">NOMBRE</th>
+          <th scope="col" style="text-align: center;">APELLIDO</th>
+          <th scope="col" style="text-align: center;">PROCESADOR</th>
+          <th scope="col" style="text-align: center;">RAM</th>
+          <th scope="col" style="text-align: center;">DISCO</th>
+          <th scope="col" style="text-align: center;">MONITOR</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center;">ANTIGUEDAD</th>
+          <th scope="col" style="text-align: center;">FECHA DE DEVOLUCION</th>
+          <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pc in page_obj_usuarios3 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: center;">{{ pc.usuario.nombre }}</td>
+          <td style="text-align: center;">{{ pc.usuario.apellido }}</td>
+          <td style="text-align: center;">{{ pc.procesador }}</td>
+          <td style="text-align: center;">{{ pc.ram }}</td>
+          <td style="text-align: center;">{{ pc.disco }}</td>
+          <td style="text-align: center;">{{ pc.monitor }}</td>
+          <td style="text-align: center;">{{ pc.modelo }}</td>
+          {% comment %} <td style="text-align: center;">{{ pc.sn }}</td> {% endcomment %}
+          <td style="text-align: center;">{{ pc.antiguedad }}</td>
+          <td style="text-align: center;">{{ pc.fecha_devolucion }}</td>
+          <td style="text-align: center;">{{ pc.fecha_entrada }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'pcs_editar' pc.id %}">Editar</a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'pcs_eliminar' pc.id %}">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% comment %} NAV IMPRESORAS {% endcomment %}
+
+<div id="impresoras-tabla" class="table-responsive" style="margin-bottom: 10px; background: rgb(185, 180, 180);">
+  
+  <ul class="nav justify-content-center">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#telefonos-tabla" style="color: black;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#impresoras-tabla" style="color: black;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#notebooks-tabla" style="color: black;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#pcs-tabla" style="color: black;">PC</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#" style="color: black;">VOLVER</a>
+    </li>
+  </ul>
+</div>
+{% comment %} TABLA IMPRESORA{% endcomment %}
+
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto; margin-bottom:700px;">
+    <center><h2>Impresoras</h2></center>
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size:14px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">NOMBRE</th>
+          <th scope="col" style="text-align: center;">APELLIDO</th>
+          <th scope="col" style="text-align: center;">TIPO</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          <th scope="col" style="text-align: center;">ABONO</th>
+          <th scope="col" style="text-align: center;">ANTIGUEDAD</th>
+          <th scope="col" style="text-align: center;">FECHA DE DEVOLUCION</th>
+          <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for impresora in page_obj_usuarios2 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: center;">{{ impresora.usuario.nombre }}</td>
+          <td style="text-align: center;">{{ impresora.usuario.apellido }}</td>
+          <td style="text-align: center;">{{ impresora.tipo }}</td>
+          <td style="text-align: center;">{{ impresora.modelo }}</td>
+          <td style="text-align: center;">{{ impresora.abono }}</td>
+          <td style="text-align: center;">{{ impresora.antiguedad }}</td>
+          <td style="text-align: center;">{{ impresora.fecha_devolucion }}</td>
+          <td style="text-align: center;">{{ impresora.fecha_entrada }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'impresoras_editar' impresora.id %}">Editar</a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'impresoras_eliminar' impresora.id %}">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="form-group row text-center">
+  <div class="col-md-12">
+    <input class="btn btn-secondary" style="font-size:13px" type="button" value="Cancelar" name="volver atras2" onclick="history.back()" />
+  </div>
+</div>
+{% endblock %}

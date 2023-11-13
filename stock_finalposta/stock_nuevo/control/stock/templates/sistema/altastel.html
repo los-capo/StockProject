@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alta{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="card col-md-8 offset-md-2">
+                <h3  style="color:#830e0eea;">Detalles del Telefono</h3>
+                <hr>
+                <p><strong>Telefono: </strong>{{ telefono.numero }} <br> <strong>Marca: </strong>{{ telefono.marca}} <br> <strong>Modelo: </strong>{{telefono.modelo}} <br> <strong>Imei o S/N: </strong>{{ telefono.imei_o_sn }} <br> <strong>Fecha de entrada: </strong>{{telefono.fecha_entrada}} <br></p>
+
+                {% if alta %}
+                   
+                <h3 style="color:#830e0eea;">Informacion de la Ultima Alta</h3>
+                <hr>
+                <p><strong>Asignado a:  </strong>{{ alta.telefono.usuario.nombre_apellido }} <br>
+                <strong>Area: </strong> {{ alta.telefono.usuario.area }} <br>
+                <strong>Lugar del usuario: </strong> {{ alta.telefono.usuario.lab_lpg }} <br>
+                <strong>Usuario que realizo el cambio: </strong>{{ usuario_alta }} <br>
+                <strong>Fecha de alta: </strong>{{ alta.fecha_alta }}</p>
+                <strong>Lugar: </strong>{{ alta.telefono.lablpg}}</p>
+                     
+                {% endif %}
+
+                <div class="text-center mt-2 mb-2">
+                    <a class="btn btn-secondary font-weight-bold" href="javascript:history.back()" style="width: 145px;">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

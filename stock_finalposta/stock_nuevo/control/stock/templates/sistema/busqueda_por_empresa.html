@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de empresas {% endblock%}
+
+{% block contenido %}
+
+<br>
+<div class="card" style="background-color: white;">
+  <div class="card-header">
+    Empresa seleccionada: {{ empresa_seleccionada.nombre }}
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size:14px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">NOMBRE</th>
+          <th scope="col" style="text-align: center;">APELLIDO</th>
+          <th scope="col" style="text-align: center;">NUMERO</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          <th scope="col" style="text-align: center;">MARCA</th>
+          <th scope="col" style="text-align: center;">Fecha de entrada</th>
+          <th scope="col" style="text-align: center;">Imei o SN</th>
+          <th scope="col" style="text-align: center;">Accesorio</th>
+          <th scope="col" style="text-align: center;">Plan</th>
+          <th scope="col" style="text-align: center;">Empresa abono</th>
+          <th scope="col" style="text-align: center;">Costo plan</th>
+          <th scope="col" style="text-align: center;">Antiguedad</th>
+          <th scope="col" style="text-align: center;">Fecha de devolucion</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for telefono in page_obj_usuarios %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: center;">{{ telefono.usuario.nombre }}</td>
+          <td style="text-align: center;">{{ telefono.usuario.apellido }}</td>
+          <td style="text-align: center;">{{ telefono.numero }}</td>
+          <td style="text-align: center;">{{ telefono.modelo }}</td>
+          <td style="text-align: center;">{{ telefono.marca }}</td>
+          <td style="text-align: center;">{{ telefono.fecha_entrada }}</td>
+          <td style="text-align: center;">{{ telefono.imei_o_sn }}</td>
+          <td style="text-align: center;">{{ telefono.accesorio }}</td>
+          <td style="text-align: center;">{{ telefono.plan }}</td>
+          <td style="text-align: center;">{{ telefono.empresa_abono }}</td>
+          <td style="text-align: center;">{{ telefono.costo_plan }}</td>
+          <td style="text-align: center;">{{ telefono.antiguedad }}</td>
+          <td style="text-align: center;">{{ telefono.fecha_devolucion }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="{% url 'telefonos_editar' telefono.id %}">Editar</a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-success" href="">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div style="margin-left: auto; margin-top: 20px;" class="d-flex justify-content-end">
+      {% if page_obj_usuarios.has_previous or page_obj_usuarios.has_next %}
+        <form action="" method="get">
+          <ul class="pagination">
+            {% if page_obj_usuarios.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj_usuarios.previous_page_number }}">Anterior</a></li>
+            {% endif %}
+            <li class="page-item">
+              <input type="number" name="page" min="1" max="{{ paginator.num_pages }}" value="{{ page_obj_usuarios.number }}" class="form-control" style="width: 90px;">
+            </li>
+            <li class="page-item">
+              <button type="submit" class="btn btn-secondary">Ir</button>
+            </li>
+            {% if page_obj_usuarios.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj_usuarios.next_page_number }}">Siguiente</a></li>
+            {% endif %}
+          </ul>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+  <div class="form-group row text-center">
+    <div class="col-md-12">
+      <input class="btn btn-secondary" style="font-size:13px" type="button" value="Cancelar" name="volver atras2" onclick="history.back()" />
+    </div>
+  </div>
+</div>
+{% endblock %}

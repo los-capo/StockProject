@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar una empresa {% endblock%}
+
+
+{% block contenido %}
+<div class="card">
+  <div class="card-header">
+    Editar una Empresa:
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label for="{{ form.nombre.id_for_label }}" class="col-form-label col-md-2">Nombre:</label>
+        <div class="col-md-10">
+          {{ form.nombre }}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="{{ form.sucursal.id_for_label }}" class="col-form-label col-md-2">Sucursal:</label>
+        <div class="col-md-10">
+          {{ form.sucursal }}
+        </div>
+      </div>
+      <div class="form-group row text-center">
+        <div class="col-md-12">
+          <a class="btn btn-primary font-weight-bold" href="{% url 'empresas_listar' %}" style="width: 145px;">Volver</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titulo %} Eliminar usuarios {% endblock%}
+
+{% block contenido %}
+
+<div class="card-body">
+  <h3>Confirmar eliminacion de usuario</h3>
+  <p>¿Estas seguro de que deseas eliminar el usuario "{{ usuario.nombre }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" href="{% url 'usuarios_listar' %}">Cancelar</a>
+  </form>
+</div>
+
+
+{% endblock %}

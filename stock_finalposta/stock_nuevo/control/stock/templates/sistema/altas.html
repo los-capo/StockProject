@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alta{% endblock %}
+
+{% block contenido %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="card col-md-8 offset-md-2">
+            <h3  style="color:#830e0eea;">Detalles de la Impresora</h3>
+            <hr>
+            <p><strong> Abono: </strong>{{ impresora.abono}} <br> <strong>Modelo: </strong>{{ impresora.modelo }} <br> <strong>Estado: </strong>{{ impresora.estado}} <br> <strong>Fecha de entrada: </strong>{{impresora.fecha_entrada }} <br> <strong>Estado: </strong>{{impresora.estado}}</p>
+
+            {% if alta %}
+               
+            <h3 style="color:#830e0eea;">Informacion de la Ultima Alta</h3>
+            <hr>
+            <p><strong>Asignado a:  </strong>{{ alta.impresora.usuario.nombre_apellido }} <br>
+            <strong>Area: </strong> {{ alta.impresora.usuario.area }} <br>
+            <strong>Lugar del usuario: </strong> {{ alta.impresora.usuario.lab_lpg }} <br>
+            <strong>Usuario que realizo el cambio: </strong>{{ usuario_alta }} <br>
+            <strong>Fecha de alta: </strong>{{ alta.fecha_alta }}</p>
+            <strong>Lugar: </strong>{{ alta.impresora.lablpg}}</p>
+                 
+            {% endif %}
+
+            <div class="text-center mt-2 mb-2">
+                <input class="btn btn-secondary" style="font-size:16px" type="button" value="Volver" name="volver atras2"onclick="history.back()" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

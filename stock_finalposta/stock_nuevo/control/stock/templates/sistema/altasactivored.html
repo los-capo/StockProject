@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alta{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="text-center">
+                 <h1>Detalles del Activo</h1>
+                </div>
+                <p>ESTADO: {{ activodered.estado }} - TIPO: {{ activodered.tipo }} -MODELO: {{activodered.modelo}} - Fecha de entrada: {{ activodered.fecha_entrada }}</p>
+
+                {% if alta %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Informacion de la Ultima Alta</h2>
+                            {{ activodered.id }}
+                            <p>Asignado a: {{ alta.empresa.consecionario }}</p>
+                            <p>Usuario que realizo el cambio: {{ usuario_alta }}</p>
+                            <p>Fecha de alta: {{ alta.fecha_alta }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="text-center mt-3">
+                    <a class="btn btn-secondary font-weight-bold" href="{% url 'inicio' %}" style="width: 145px;">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

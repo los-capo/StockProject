@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar un usuario {% endblock%}
+
+
+{% block contenido %}
+
+<style>
+  .card {
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    margin: 0 auto;
+    padding: 1px;
+  }
+
+  .card-header {
+    background-color: #eaeaea;
+    border-radius: 2px;
+  }
+
+  .card-title {
+    margin: 0;
+    color: #333;
+  }
+
+  .form-container {
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 2px;
+    text-align: left;
+    margin-bottom: 2px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+  }
+
+  .form-container input[type="text"],
+  .form-container select {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+  }
+
+  .form-wrapper {
+    text-align: center;
+  }
+
+  .form-wrapper .btn {
+    margin-right: 2px;
+  }
+  /* Estilos para los mensajes de error */
+  .messages {
+      color: #cc0000;
+      background-color: #fdd;
+      border: 1px solid #cc0000;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+  }
+</style>
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Editar un Usuario:</h5>
+  </div>
+  <div class="card-body">
+    <div class="form-wrapper">
+      <div class="form-container">
+        <form method="post">
+          {% csrf_token %}
+
+          <label for="id_area">Area:</label>
+          {{ form.area }}
+
+          <label for="id_nombre_apellido">Nombre y Apellido:</label>
+          {{ form.nombre_apellido }}
+
+          <label for="id_legajo">Legajo:</label>
+          {{ form.legajo }}
+
+          <label for="id_razon_social">Razon Social:</label>
+          {{ form.razon_social }}
+
+          <label for="id_DNI">DNI:</label>
+          {{ form.DNI }}
+
+          <label for="id_CATEGORIA_CTT">Categoria CTT:</label>
+          {{ form.CATEGORIA_CTT }}
+
+          <label for="id_cargo">Puesto:</label>
+          {{ form.cargo }}
+
+          <label for="id_CCO">CCO:</label>
+          {{ form.CCO }}
+
+          <label for="id_lugar_trab">Lugar de Trabajo:</label>
+          {{ form.lugar_trab }}
+
+          <label for="id_lab_lpg">Laboratorio LPG:</label>
+          {{ form.lab_lpg }}
+
+          <div style="text-align: center; margin-top: 20px;">
+            <input class="btn btn-secondary" type="button" value="Volver" onclick="history.back()" />
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

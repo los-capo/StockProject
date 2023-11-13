@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+{% load static %}
+
+<style>
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: moveInTop 1s ease-out;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+  }
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  }
+  .black-placeholder::placeholder {
+    color: black;
+    font-size:15px;
+  }
+
+  a{
+    text-decoration:none;
+    color:black;
+  }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="row" style="line-height: 1;">
+    <div class="col-6 mt-3" >
+      <h4  style="font-family: 'Roboto', sans-serif; font-weight: 350; text-align: left; margin-bottom: 0.1rem; line-height: 0.9">TOTAL EQUIPOS</h4>
+      <div class="" style="border: 1px solid #d1cfcf; padding: 20px; background-color: white; box-shadow: 2px 3px 4px rgb(211, 209, 209);">
+        <table style="width: 100%; font-size: 12px; ">
+          <tr>
+            <td ><img style="width: 3%; "src="{% static 'imagenes/Iconos/telefonoCelular.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'telefonos_listar' %}"> <strong>Total de Telefonos:</strong></a></td>
+            <td>{{ telefonos_count }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/Notebooknotebook.png' %}" alt="Icono 1"><a class="" style="vertical-align: middle;" href="{% url 'notebooks_listar' %}"> <strong>Total de Notebooks:</strong></a></td>
+            <td>{{ notebooks_count }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/PCpc.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'pcs_listar' %}"> <strong>Total de PC:</strong></a></td>
+            <td>{{ pcs_count }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/impresoraimpresora.png' %}"><a class="" href="{% url 'impresoras_listar' %}"> <strong>Total de Impresoras:</strong></a></td>
+            <td>{{ impresoras_count }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/tecladoteclado.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'activos_listar' %}"> <strong>Total de Activos:</strong></a></td>
+            <td>{{ activos_count }}</td>
+          </tr>
+          <tr>
+             <td colspan="2"><hr></td> 
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/irreparable.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'irreparables' %}"> <strong>Total de Irreparables:</strong></a></td>
+            <td>{{ total_irre }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/celSin.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'telefonos_listar' %}?buscartel=&otrofiltro=sin_asignar"> <strong> Total de Telefonos sin asignar:</strong></a></td>
+            <td>{{ telefonos_sin_asignar }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/NoteSin.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'notebooks_listar' %}?buscarnote=sin_asignar&otrofiltro="> <strong> Total de Notebooks sin asignar:</strong></a></td>
+            <td>{{ notebooks_sin_asignar }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/PcSin.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'pcs_listar' %}?buscarpc=sin_asignar&otrofiltro="> <strong> Total de PC sin asignar:</strong></a></td>
+            <td>{{ pcs_sin_asignar }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/impresoraSin.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'impresoras_listar' %}?buscarimp=sin_asignar&otrofiltro="> <strong> Total de Impresoras sin asignar:</strong></a></td>
+            <td>{{ impresoras_sin_asignar }}</td>
+          </tr>
+          <tr>
+            <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/ActivoSin.png' %}"><a class=""  style="vertical-align: middle;" href="{% url 'activos_listar' %}?buscaract=sin_asignar&otrofiltro="> <strong>Total de Activos sin asignar:</strong></a></td>
+            <td>{{ activos_sin_asignar }}</td>
+          </tr>
+          <tr>
+            <td colspan="2"><hr></td> 
+         </tr>
+         <tr>
+           <td><a class="" href="{% url 'lista_licencias_off' %}" style="vertical-align: middle;"><strong>Licencias de Microsoft:<strong></strong></a></td>
+           <td>{{ licencias }}</td>
+         </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="col-6 mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="" method="GET" action="{% url 'inicio' %}" style="width: 100%; font-family: 'Roboto', sans-serif; font-weight: 300; id="search-form">
+            <div class="form-group text-center">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary btn-sm" style="background-color: transparent; border:none"> 
+                    <span class="material-symbols-outlined" style="color:rgb(128, 128, 128)">search</span> 
+                  </button>
+                </div>
+                <input type="text" id="searchInput" oninput="filterTable()" name="buscar1" class="form-control form-control-sm black-placeholder" placeholder="Buscar por usuario" style=" font-size: 1.17em; font-family: 'Roboto', sans-serif; font-weight: 300;">
+
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <form class="" method="GET" action="" style="width: 100%;" >
+            <div class="form-group text-center">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button type="submit" class="btn btn-secondary btn-sm" style="background-color: transparent; border: none;"> 
+                    <span class="material-symbols-outlined" style="color:rgb(128, 128, 128)">search</span>
+                  </button>
+                </div>
+                <select class="form-control form-control-sm" name="marca" id="marca" style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 15px;">
+                  <option value="" >Buscar por empresa</option>
+                  {% for marca_choice in marcas %}
+                  <option value="{{ marca_choice.0 }}">{{ marca_choice.1 }}</option>
+                  {% endfor %}
+                </select>
+                <input type="hidden" name="company" value="{{ marca_choice.0 }}">
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-12 mt-3">
+          <div id="tablaContainer" style="display: none;">
+
+          <div style="border: 1px solid #d1cfcf; padding: 20px; background-color: white;box-shadow: 2px 3px 4px rgb(211, 209, 209); max-height: 362px; overflow: auto;">
+              <div class="table-responsive">
+                  <table style="width: 100%; font-size: 14px;">
+                      <thead>
+                          <tr style="background-color: rgb(240, 240, 240); font-size: 14px; color: rgb(0, 0, 0);">
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;">USUARIO</th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;">AREA</th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;">LEGAJO</th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;"></th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;"></th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;"></th>
+                              <th scope="col" style="text-align: left; font-size: 11px; padding: 0; margin: 0;"></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for usuario in page_obj_usuarios %}
+                          <tr style="background-color: white; font-size: 9px;">
+                              <td style="text-align: left; font-size: 11px; padding: 0; margin: 0;">{{ usuario.nombre_apellido }}</td>
+                              <td style="text-align: left; font-size: 11px; padding: 0; margin: 0;">{{ usuario.area }}</td>
+                              <td style="text-align: left; font-size: 11px; padding: 0; margin: 0;">{{ usuario.legajo }}</td>
+                              <td style="text-align: left; padding: 0; margin: 0;">
+                                  <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'usuarios_datos' usuario.id%}">
+                                      <span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span>
+                                  </a>
+                              </td>
+                              <td style="text-align: left; padding: 0; margin: 0;">
+                                  <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'activos_usuario' usuario.id %}">
+                                      <span class="material-symbols-outlined" style="padding: 0; margin: 0;">important_devices</span>
+                                  </a>
+                              </td>
+                              <td style="text-align: left; padding: 0; margin: 0;">
+                                  <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'usuarios_editar' usuario.id %}">
+                                      <span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span>
+                                  </a>
+                              </td>
+                             <td style="text-align: left; padding: 0; margin: 0;">
+                                  <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'lista_licencias' usuario.id %}">
+                                      <span class="material-icons">add</span>
+                                  </a>
+                             </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+      </div>
+      
+    
+    
+    
+  </div>
+</div>
+
+{% comment %} SCRIPT {% endcomment %}
+<script>
+ 
+  document.getElementById("marca").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+
+      const marcaValue = this.value.trim();
+
+      if (marcaValue) {
+        const marcaSlug = marcaValue.replace(/ /g, ""); 
+        window.location.href = `/inicio/marca/${marcaSlug}`; 
+      }
+    }
+  });
+</script>
+
+<script>
+  function filterTable() {
+      const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("#tablaContainer table tbody tr");
+
+      for (const row of rows) {
+          const rowData = row.textContent.toLowerCase();
+          row.style.display = rowData.includes(searchTerm) ? "table-row" : "none";
+      }
+
+      const tablaContainer = document.getElementById("tablaContainer");
+      tablaContainer.style.display = searchTerm.length > 0 ? "block" : "none";
+  }
+</script>
+<script>
+  function redirect() {
+    var selectElement = document.getElementById("area");
+    var selectedOption = selectElement.value;
+
+    if (selectedOption) {
+      var areaSlug = selectedOption.replace(" ", "_");
+      window.location.href = `area/${areaSlug}.html`;
+    }
+  }
+</script>
+
+{% endblock %}

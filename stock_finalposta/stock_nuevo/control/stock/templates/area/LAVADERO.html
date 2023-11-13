@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+
+{% block titulo %} ADMINISTRACION {% endblock%}
+
+{% block contenido %}
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: moveInTop 1s ease-out;
+    margin: 50px; 
+  }
+
+  .row {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+  }
+
+  .mx-2 {
+    margin: 10px;
+  }
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  
+  }
+  a{
+    text-decoration:none;
+    color:black;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var navLinks = document.getElementsByClassName('nav-link');
+
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function() {
+        var currentActiveLink = document.querySelector('.nav-link.active');
+
+        if (currentActiveLink) {
+          currentActiveLink.classList.remove('active');
+        }
+
+        this.classList.add('active');
+      });
+    }
+  });
+</script>
+
+<a class="btn btn-secondary font-weight-bold mt-5" href="{% url 'inicio' %}" style="width: 145px;">Volver</a>
+
+<div class="table-responsive">
+  <ul class="nav justify-content-center">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link active" aria-current="page" href="#tabla-telefonos">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#tabla-impresoras">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#tabla-notebooks">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#tabla-pcs">PC</a>
+    </li>
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" href="#tabla-activos">ACTIVOS</a>
+    </li>
+
+  </ul>
+
+<div id="tabla-telefonos" class="tabla">
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de Telefonos
+  </div>
+</div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered" style="">
+        <thead>
+          <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+            <th scope="col" style="text-align: center;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center;">NUMERO</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            <th scope="col" style="text-align: center;">MARCA</th>
+            <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+            {% comment %} <th scope="col" style="text-align: center;">IMEI O SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">ACCESORIO</th>
+            <th scope="col" style="text-align: center;">PLAN</th>
+            <th scope="col" style="text-align: center;">EMPRESA ABONO</th>
+            <th scope="col" style="text-align: center;">COSTO DEL PLAN</th>
+            <th scope="col" style="text-align: center;">FECHA DEVOLUCION</th>
+            <th scope="col" style="text-align: center;">EDITAR</th>
+            <th scope="col" style="text-align: center;">ELIMINAR</th>
+            <th scope="col" style="text-align: center;">DETALLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for telefono in page_obj %}
+          <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+            <td style="text-align: center;">{{ telefono.usuario.nombre_apellido }}</td>
+            <td style="text-align: center;">{{ telefono.numero }}</td>
+            <td style="text-align: center;">{{ telefono.modelo }}</td>
+            <td style="text-align: center;">{{ telefono.marca }}</td>
+            <td style="text-align: center;">{{ telefono.fecha_entrada }}</td>
+            {% comment %} <td style="text-align: center;">{{ telefono.imei_o_sn }}</td> {% endcomment %}
+            <td style="text-align: center;">{{ telefono.accesorio }}</td>
+            <td style="text-align: center;">{{ telefono.plan }}</td>
+            <td style="text-align: center;">{{ telefono.antiguedad }}</td>
+            <td style="text-align: center;">{{ telefono.empresa_abono }}</td>
+            <td style="text-align: center;">{{ telefono.costo_plan }}</td>  
+            <td style="text-align: center;">{{ telefono.fecha_devolucion }}</td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-primary" href="{% url 'altastel' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-success" href="{% url 'telefonos_editar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-danger" href="{% url 'telefonos_eliminar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+            </td>
+           
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div id="tabla-notebooks" class="tabla">
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de Notebooks
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+        <thead>
+          <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+            <th scope="col" style="text-align: center;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center;">MARCA</th>
+            <th scope="col" style="text-align: center;">PROCESADOR</th>
+            <th scope="col" style="text-align: center;">RAM</th>
+            <th scope="col" style="text-align: center;">DISCO</th>
+            <th scope="col" style="text-align: center;">MONITOR</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">ANTIGUEDAD</th>
+            <th scope="col" style="text-align: center;">FECHA DE DEVOLUCION</th>
+            <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+            <th scope="col" style="text-align: center;">EDITAR</th>
+            <th scope="col" style="text-align: center;">ELIMINAR</th>
+            <th scope="col" style="text-align: center;">DETALLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for notebook in page_obj2 %}
+          <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+            <td style="text-align: center;">{{ notebook.usuario.nombre_apellido }}</td>
+            <td style="text-align: center;">{{ notebook.marca }}</td>
+            <td style="text-align: center;">{{ notebook.procesador }}</td>
+            <td style="text-align: center;">{{ notebook.ram }}</td>
+            <td style="text-align: center;">{{ notebook.disco }}</td>
+            <td style="text-align: center;">{{ notebook.monitor }}</td>
+            <td style="text-align: center;">{{ notebook.modelo }}</td>
+            {% comment %} <td style="text-align: center;">{{ notebook.sn }}</td> {% endcomment %}
+            <td style="text-align: center;">{{ notebook.fecha_devolucion }}</td>
+            <td style="text-align: center;">{{ notebook.fecha_entrada }}</td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-primary" href="{% url 'altasnote' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-success" href="{% url 'notebooks_editar' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-danger" href="{% url 'notebooks_eliminar' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+            </td>
+          
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div id="tabla-impresoras" class="tabla">
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de Impresoras 
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center;">ESTADO</th>
+          <th scope="col" style="text-align: center;">REPARABILIDAD</th>
+          <th scope="col" style="text-align: center;">TIPO</th>
+          <th scope="col" style="text-align: center;">MODELO</th>
+          <th scope="col" style="text-align: center;">FECHA ENTRADA</th>
+          <th scope="col" style="text-align: center;">FECHA DEVOLUCION</th>
+          <th scope="col" style="text-align: center;">EDITAR</th>
+          <th scope="col" style="text-align: center;">BAJA</th>
+          <th scope="col" style="text-align: center;">DETALLES</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for impresora in page_obj1 %}
+        <tr class="" style="background-color: white; font-size: 14px; line-width: 1; vertical-align: middle;">
+          <td style="text-align: left;">{{ impresora.estado }}</td>
+          <td style="text-align: left;">{{ impresora.reparabilidad }}</td>
+          <td style="text-align: left;">{{ impresora.tipo }}</td>
+          <td style="text-align: left;">{{ impresora.modelo }}</td>
+          <td style="text-align: left;">{{ impresora.fecha_entrada }}</td>
+          <td style="text-align: left;">{{ impresora.fecha_devolucion }}</td>
+          <td style="text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-primary" href="{% url 'altas' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+         </td>
+          <td style="text-align: center; font-weight: bold;">
+             <a class="btn btn-outline-success" href="{% url 'impresoras_editar' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+          </td>
+          <td style="text-align: center; font-weight: bold;">
+             <a class="btn btn-outline-danger" href="{% url 'impresoras_eliminar' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+          </td>
+         
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div id="tabla-pcs" class="tabla">
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de PCs
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+        <thead>
+          <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+            <th scope="col" style="text-align: center;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center;">PROCESADOR</th>
+            <th scope="col" style="text-align: center;">RAM</th>
+            <th scope="col" style="text-align: center;">DISCO</th>
+            <th scope="col" style="text-align: center;">MONITOR</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">FECHA DE DEVOLUCION</th>
+            <th scope="col" style="text-align: center;">FECHA DE ENTRADA</th>
+            <th scope="col" style="text-align: center;">EDITAR</th>
+            <th scope="col" style="text-align: center;">ELIMINAR</th>
+            <th scope="col" style="text-align: center;">DETALLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pc in page_obj3 %}
+          <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+            <td style="text-align: center;">{{ pc.usuario.nombre_apellido }}</td>
+            <td style="text-align: center;">{{ pc.procesador }}</td>
+            <td style="text-align: center;">{{ pc.ram }}</td>
+            <td style="text-align: center;">{{ pc.disco }}</td>
+            <td style="text-align: center;">{{ pc.monitor }}</td>
+            <td style="text-align: center;">{{ pc.modelo }}</td>
+            {% comment %} <td style="text-align: center;">{{ pc.sn }}</td> {% endcomment %}
+            <td style="text-align: center;">{{ pc.fecha_devolucion }}</td>
+            <td style="text-align: center;">{{ pc.fecha_entrada }}</td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-primary" href="{% url 'altaspc' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-success" href="{% url 'pcs_editar' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-danger" href="{% url 'pcs_eliminar' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+            </td>
+           
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div id="tabla-activos" class="tabla">
+  <!-- Contenido de la tabla de Activos -->
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de Activos
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+        <thead>
+          <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0); overflow-x: auto;">
+            <th scope="col" style="text-align: center;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center;">ESTADO</th>
+            <th scope="col" style="text-align: center;">REPARABILIDAD</th>
+            <th scope="col" style="text-align: center;">TIPO</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">FECHA ENTRADA</th>
+            <th scope="col" style="text-align: center;">FECHA DEVOLUCION</th>
+            <th scope="col" style="text-align: center;">EDITAR</th>
+            <th scope="col" style="text-align: center;">ELIMINAR</th>
+            <th scope="col" style="text-align: center;">DETALLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for activos in activosinfra %}
+          <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+            <td style="text-align: center;">{{ activos.usuario.nombre_apellido }}</td>
+            <td style="text-align: center;">{{ activos.estado }}</td>
+            <td style="text-align: center;">{{ activos.reparabilidad }}</td>
+            <td style="text-align: center;">{{ activos.tipo }}</td>
+            <td style="text-align: center;">{{ activos.modelo }}</td>
+            {% comment %} <td style="text-align: center;">{{ activos.sn }}</td> {% endcomment %}
+            <td style="text-align: center;">{{ activos.fecha_entrada }}</td>
+            <td style="text-align: center;">{{ activos.fecha_devolucion }}</td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-primary" href="{% url 'altasactivo' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-success" href="{% url 'activos_editar' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+            </td>
+            <td style="text-align: center; font-weight: bold;">
+              <a class="btn btn-outline-danger" href="{% url 'activos_eliminar' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+            </td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+
+
+
+<script>
+  function ocultarTablas() {
+    var tablas = document.getElementsByClassName("tabla");
+    for (var i = 0; i < tablas.length; i++) {
+      tablas[i].style.display = "none";
+    }
+  }
+
+  function mostrarTabla(idTabla) {
+    ocultarTablas();
+    var tabla = document.getElementById(idTabla);
+    if (tabla) {
+      tabla.style.display = "block";
+    }
+  }
+
+  var enlaces = document.getElementsByClassName("link-1");
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].addEventListener("click", function(event) {
+      event.preventDefault();
+      var href = this.getAttribute("href");
+      mostrarTabla(href.substring(1));
+    });
+  }
+
+  ocultarTablas();
+  mostrarTabla("tabla-telefonos");
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block titulo %} Datos de usuarios {% endblock%}
+
+{% block contenido %}
+
+<div class="card" style=" background-color: white;" >
+  <div class="card-header" style="text-align: center; ">
+    Lista de usuarios:
+  </div>
+<div class="table-responsive" style=" max-height: 425px; overflow-y: auto; ">
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(240, 240, 240); font-size:10px;color:rgb(0, 0, 0); width: 0px;">
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">APELLIDO NOMBRE</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">AREA</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">CARGO</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">LEGAJO</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">RAZON SOCIAL</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">CATEGORIA CTT</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">CCO</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">DNI</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Lugar trabajo</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Lab_lpg</th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+        </tr>
+    </thead>
+        <tbody>
+            <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ usuario.nombre_apellido }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.area }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.cargo }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.legajo}}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.razon_social}}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.CATEGORIA_CTT}}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.CCO }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.DNI }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.lugar_trab}}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto; ">{{ usuario.lab_lpg}}</td>
+              <td style="text-align: center; padding: 0; margin: 0;">
+                <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'activos_usuario' usuario.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+              </td>
+              <td style="text-align: center; padding: 0; margin: 0;">
+                <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'usuarios_editar' usuario.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    
+ </div>
+ <div class="form-group row text-center">
+    <div class="col-md-12">
+      <a class="btn btn-secondary font-weight-bold mt-5" href="javascript:history.back()" style="width: 145px;">Volver</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

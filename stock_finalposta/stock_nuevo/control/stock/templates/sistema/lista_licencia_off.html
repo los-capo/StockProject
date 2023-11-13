@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de licencias {% endblock %}
+
+{% block contenido %}
+<div class="container" >
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                {% comment %} <a class="btn btn-secondary font-weight-bold" href="{% url 'inicio' %}" style="width: 70px; font-size:15px">Volver</a> {% endcomment %}
+                <form action="" method="get" class="form-inline">
+                    <div class="input-group" style="max-width: 400px;">
+                        <input type="text" name="buscar_usuario" placeholder="Buscar usuario..." class="form-control form-control-sm">
+                        <select class="form-control form-control-sm" id="licencia" name="licencia">
+                            <option value="" selected disabled>Licencias</option>
+                            <option value="Exchange Online (plan 1)">Exchange Online (plan 1)</option>
+                            <option value="Office 365 E1">Office 365 E1</option>
+                            <option value="Office 365 E5">Office 365 E5</option>
+                            <option value="Office 365 E5 sin Audioconferencia">Office 365 E5 sin Audioconferencia</option>
+                            <option value="Quiosco de Exchange Online">Quiosco de Exchange Online</option>
+                        </select>
+                        <select class="form-control form-control-sm" id="lablpg" name="lablpg">
+                            <option value="" selected disabled>Sucursal</option>
+                            <option value="IQSA CORDOBA">IQSA CORDOBA</option>
+                            <option value="AUTOROUTE">AUTOROUTE</option>
+                            <option value="AVENUE ROSARIO">AVENUE ROSARIO</option>
+                            <option value="AILES CABA">AILES CABA</option>
+                            <option value="AVENUE CORDOBA">AVENUE CORDOBA</option>
+                            <option value="AMSA MOTORRAD">AMSA MOTORRAD</option>
+                            <option value="AMSA BMW">AMSA BMW</option>
+                            <option value="AMSA MINI">AMSA MINI</option>
+                            <option value="CHEVENT VENADO TUERTO">CHEVENT VENADO TUERTO</option>
+                            <option value="AVENUE DS">AVENUE DS</option>
+                            <option value="CHEVENT SALADILLO">CHEVENT SALADILLO</option>
+                            <option value="VOLANT URQUIZA">VOLANT URQUIZA</option>
+                            <option value="VOLANT CENTRAL">VOLANT CENTRAL</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                <span class="material-symbols-outlined" style="color: grey;">search</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <div class="row ">
+        <div class="col-md-6">
+            <h5 style="font-size:15px; font-family: 'Reboto', sans-serif; font-weight: 30px;">TOTAL DE LICENCIAS</h5>
+            <div class="border p-0 " style="border: 1px solid #d1cfcf; background-color: white; box-shadow: 2px 3px 4px rgb(211, 209, 209);">
+                <table class="table table-borderless  " style="font-size: 11px;">
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>Office 365 E5<strong>:</strong></a></td>
+                <td>{{ cantidad_office_e5 }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>Office 365 E5 WAC<strong>:</strong></a></td>
+                <td>{{ cantidad_office_e5wac }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>Exchange Online (Plan 1)<strong>:</strong></a></td>
+                <td>{{ cantidad_office_exchangeplan1 }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>Exchange Online Kiosk<strong>:</strong></a></td>
+                <td>{{ cantidad_office_quioscoonline }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>Office 365 E1<strong>:</strong></a></td>
+                <td>{{ cantidad_office_e1 }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td> 
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>SUCURSAL<strong>:</strong></a></td>
+                <td style="font-size:10px;">{{ sucursal_nombre }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>TOTAL LICENCIAS<strong>:</strong></a></td>
+                <td style="font-size:10px;">{{ contador }}</td>
+            </tr>
+            <tr>
+                <td><a class="" style="font-size:9px;vertical-align: middle; text-decoration:none; color:black;"><strong>PRECIO CON IVA<strong>:</strong></a></td>
+                <td style="font-size:10px;">$ {{ precio_total }}</td>
+            </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-6" >
+        <h5 style="font-size:15px;font-family: 'Reboto', sans-serif; font-weight: 300;">LICENCIA {{ licencia_nombre }}</h5>
+      <div style="max-height:350px; overflow: auto;">
+         <table class="table table-responsive table-bordered" style=" border: 1px solid #d1cfcf; background-color: white; box-shadow: 2px 3px 4px rgb(211, 209, 209); font-size:9px; ">
+           <thead style="background-color: rgb(240, 240, 240); ">
+               <tr class="">
+                   <th scope="col">APELLIDO Y NOMBRE</th>
+                   <th scope="col">AREA</th>
+                   <th scope="col">LICENCIA</th>
+                </tr>
+           </thead>
+           <tbody >
+            {% regroup licencias by usuario as user_licencias %}
+            {% for user_group in user_licencias %}
+            {% with user=user_group.grouper %}
+                <tr class="row-item" style="text-align:center ;background-color: white;">
+                    <td class="align-middle text-start" style="height: 20px;">{{ user.nombre_apellido }}</td>
+                    <td class="align-middle text-start" style="height: 20px;">{{ user.area }}</td>
+                    <td class="align-middle text-start" style=" height: 20px;">
+                        {% for licencia in user_group.list %}
+                            {{ licencia.get_licenciaoffice_display }}
+                        {% endfor %}
+                    </td>
+                </tr>
+               {% endwith %}
+            {% endfor %}
+        </tbody>
+     </table>
+</iv>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

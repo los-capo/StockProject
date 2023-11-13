@@ -1,0 +1,434 @@
+{% extends "base.html" %}
+{% block titulo %} Actividad del personal {% endblock%}
+{% block contenido %}
+
+    {% comment %} NAVEGACION ANIMADA {% endcomment %}
+  <div style="text-align: center;">
+    <h2 style="font-family: 'Montserrat', sans-serif;"></h2>
+  </div>
+
+<div class="text-center">
+  <form method="GET" class="d-flex align-items-center justify-content-center">
+    <select class="form-select" name="usuario" style="width: 150px;">
+      {% for user in users %}
+        <option value="{{ user.id }}" {% if user.id == usuario or user.id == selectedUser %}selected{% endif %}>{{ user.username }}</option>
+      {% endfor %}
+    </select>
+    <input class="form-control ms-2" type="date" style="width: 150px;" name="fecha" placeholder="Fecha">
+    <button class="btn btn-secondary m-1" style="font-size:12px;" type="submit">Mostrar</button>
+  </form>
+</div>
+
+<div class="table-responsive">
+  <ul class="nav justify-content-center" style="background-color: none; padding: 10px; border-radius: 5px;">
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" aria-current="page" href="#tabla-total" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">TOTAL</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" aria-current="page" href="#tabla-ailes" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">INFORMES</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" aria-current="page" href="#tabla-telefonos" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-impresoras" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-notebooks" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-pcs" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">PC</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-activos" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 12px;">ACTIVOS</a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: #ddd;
+  }
+</style>
+
+  <div id="tabla-ailes" class="tabla">
+    <div class="card">
+      <div class="m-1" style="text-align: center;font-size: 14px;">
+        Numero total de activos cargados individual o modificaciones:  <span style="color:red";>{{ cantidad_total_individual }}</span>
+    </div>
+  </div>
+    <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+      <table class="table table-bordered" style="">
+          <thead>
+            <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Telefonos total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Notebooks total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Pcs total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Impresoras total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Activos infraestructura total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" style="background-color: white;  font-size:9px;">
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ cantidad_telefonos }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ cantidad_notebooks }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ cantidad_pcs }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ cantidad_impresoras }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ cantidad_activos }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div id="tabla-total" class="tabla">
+    <div class="card">
+      <div class="m-1" style="text-align: center; font-size: 14px;">
+        Numero total de activos cargados o modificaciones:  <span style="color:red";>{{ total }}</span>
+    </div>
+  </div>
+    <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+      <table class="table table-bordered" style="">
+          <thead>
+            <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Telefonos total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Notebooks total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Pcs total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Impresoras total</th>
+              <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">Activos infraestructura total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ totaltels }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ totalnotes }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ totalpcs }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ totalimps }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ totalactivos }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  
+  <div id="tabla-notebooks" class="tabla">
+   <div class="card">
+     <div class="m-1" style="text-align: center; font-size: 14px;">
+       Lista de Notebooks: {{ cantidad_notebooks }}
+     </div>
+   </div>
+   <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+     <table class="table table-bordered">
+       <thead>
+         <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">FECHA ALTA</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NOTEBOOK PROCESADOR</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NOTEBOOK RAM</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NOTEBOOK DISCO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NOTEBOOK MODELO</th>
+           {% comment %} <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NOTEBOOK SN</th> {% endcomment %}
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">USUARIO</th>
+         </tr>
+       </thead>
+       <tbody>
+         {% for altanotebook in page_obj_usuarios %}
+           {% if altanotebook.usuario_alta_id == usuario.id %}
+             <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.fecha_alta }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.procesador }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.ram }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.disco }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.modelo }}</td>
+               {% comment %} <td style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.sn }}</td> {% endcomment %}
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altanotebook.notebook.usuario.nombre_apellido}}</td>
+             </tr>
+           {% endif %}
+         {% endfor %}
+       </tbody>
+     </table>
+   </div>
+ </div>
+
+<div id="tabla-impresoras" class="tabla">
+  <div class="card">
+    <div class="m-1" style="text-align: center; font-size: 14px;">
+      Lista de Impresoras: {{ cantidad_impresoras }}
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size: 14px; color: rgb(0, 0, 0); overflow-x: auto;">
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">FECHA ALTA</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">IMPRESORA ESTADO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">IMPRESORA MODELO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">IMPRESORA TIPO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">USUARIO</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for altaimpresora in page_obj_impresoras %}
+           {% if altaimpresora.usuario_alta_id == usuario.id %}
+             <tr class="" style="background-color: white; font-size: 14px; line-width; vertical-align: middle;">
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaimpresora.fecha_alta }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaimpresora.impresora.estado }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaimpresora.impresora.modelo }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaimpresora.impresora.tipo }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaimpresora.impresora.usuario.nombre_apellido }}</td>
+             </tr>
+           {% endif %}
+         {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+ <div id="tabla-telefonos" class="tabla">
+   <div class="card">
+     <div class="m-1" style="text-align: center; font-size: 14px;">
+       Lista de Telefonos: {{ cantidad_telefonos }}
+     </div>
+   </div>
+   <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+     <table class="table table-bordered">
+       <thead>
+         <tr style="background-color: rgb(240, 240, 240); font-size: 14px; color: rgb(0, 0, 0); overflow-x: auto;">
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">FECHA ALTA</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ESTADO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">REPARABILIDAD</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NUMERO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">MODELO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">MARCA</th>
+           {% comment %} <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">IMEI O SN</th> {% endcomment %}
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ACCESORIO</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">PLAN</th>
+           <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">USUARIO</th>
+         </tr>
+       </thead>
+       <tbody>
+         {% for altatelefono in page_obj_telefonos %}
+           {% if altatelefono.usuario_alta_id == usuario.id %}
+             <tr class="" style="background-color: white; font-size: 14px; line-width; vertical-align: middle;">
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.fecha_alta }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.estado }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.reparabilidad }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.numero }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.modelo }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.marca }}</td>
+               {% comment %} <td style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.imei_o_sn }}</td> {% endcomment %}
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.accesorio }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.plan }}</td>
+               <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altatelefono.telefono.usuario.nombre_apellido }}</td>
+             </tr>
+           {% endif %}
+         {% endfor %}
+       </tbody>
+     </table>
+   </div>
+</div>
+
+
+<div id="tabla-pcs" class="tabla">
+  <div class="card">
+    <div class="m-1" style="text-align: center; font-size: 14px;">
+      Lista de PCs: {{ cantidad_pcs }}
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size: 14px; color: rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">FECHA ALTA</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ESTADO</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">REPARABILIDAD</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">RAM</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">PROCESADOR</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">DISCO</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">MONITOR</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">USUARIO</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for altapc in page_obj_pcs %}
+          {% if altapc.usuario_alta_id == usuario.id %}
+            <tr class="" style="background-color: white; font-size: 14px; line-width; vertical-align: middle;">
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.fecha_alta }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.estado }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.reparabilidad }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.ram }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.procesador }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.disco }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.monitor }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.modelo }}</td>
+              {% comment %} <td style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.sn }}</td> {% endcomment %}
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altapc.pc.usuario.nombre_apellido}}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div id="tabla-activos" class="tabla">
+  <div class="card">
+    <div class="m-1" style="text-align: center; font-size: 14px;">
+      Lista de Activos: {{ cantidad_activos }}
+    </div>
+  </div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: rgb(240, 240, 240); font-size: 14px; color: rgb(0, 0, 0); overflow-x: auto;">
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">FECHA ALTA</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ESTADO</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">REPARABILIDAD</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">TIPO</th>
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">USUARIO</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for altaactivo in page_obj_activos %}
+          {% if altaactivo.usuario_alta_id == usuario.id %}
+            <tr class="" style="background-color: white; font-size: 14px; line-width; vertical-align: middle;">
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.fecha_alta }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.estado }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.reparabilidad }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.tipo }}</td>
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.modelo }}</td>
+              {% comment %} <td style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.sn }}</td> {% endcomment %}
+              <td style="text-align: center; font-size: 9px; padding:0;margin: 0;width: 0px; overflow-x: auto;">{{ altaactivo.activo.usuario.nombre_apellido }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+<style>
+
+  ul, #myUL{
+    list-style-type: none;
+  }
+
+  #myUL {
+    margin: 0;
+    padding: 0;
+  }
+
+  .caret{
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .caret::before {
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .anidado {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+</style>
+
+<script>
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.querySelector(".anidado").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    })
+  }
+
+  var select = document.querySelector('select[name="usuario"]');
+
+  var selectedValue = localStorage.getItem('selectedUser');
+
+  if (selectedValue) {
+    select.value = selectedValue;
+  }
+
+  select.addEventListener('change', function() {
+    var selectedOption = select.options[select.selectedIndex];
+    var selectedUserId = selectedOption.value;
+
+    localStorage.setItem('selectedUser', selectedUserId);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var navLinks = document.getElementsByClassName('nav-link');
+
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function() {
+        var currentActiveLink = document.querySelector('.nav-link.active');
+
+        if (currentActiveLink) {
+          currentActiveLink.classList.remove('active');
+        }
+
+        this.classList.add('active');
+      });
+    }
+  });
+
+
+  var inputFecha = document.querySelector('input[name="fecha"]');
+
+  var fechaValue = localStorage.getItem('selectedFecha');
+
+  if (fechaValue) {
+    inputFecha.value = fechaValue;
+  }
+
+  inputFecha.addEventListener('change', function() {
+    var fecha = inputFecha.value;
+
+    localStorage.setItem('selectedFecha', fecha);
+  });
+
+  function ocultarTablas() {
+    var tablas = document.getElementsByClassName("tabla");
+    for (var i = 0; i < tablas.length; i++) {
+      tablas[i].style.display = "none";
+    }
+  }
+
+  function mostrarTabla(idTabla) {
+    ocultarTablas();
+    var tabla = document.getElementById(idTabla);
+    if (tabla) {
+      tabla.style.display = "block";
+    }
+  }
+
+  var enlaces = document.getElementsByClassName("link-1");
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].addEventListener("click", function(event) {
+      event.preventDefault();
+      var href = this.getAttribute("href");
+      mostrarTabla(href.substring(1));
+    });
+  }
+
+  ocultarTablas();
+  mostrarTabla("tabla-ailes");
+</script>
+
+
+
+
+{% endblock %}

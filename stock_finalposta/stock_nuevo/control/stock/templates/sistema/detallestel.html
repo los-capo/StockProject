@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Bajas{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Detalles del Telefono</h1>
+                <p>ESTADO: {{ telefono.estado }} - NUMERO: {{ telefono.numero }} - MODELO: {{ telefono.modelo}} - FECHA DE ENTRADA: {{ telefono.fecha_entrada }}</p>
+                <p>IMEI O SN: {{ telefono.imei_o_sn }} - ACCESORIO: {{ telefono.accesorio }} - PLAN: {{ telefono.plan}}</p>
+                {% if eliminacion %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Informacion de la Ultima Alta</h2>
+                            <p>Asignado a: {{ eliminacion.telefono.usuario.nombre_apellido }}</p>
+                            <p>Usuario que realizo el cambio: {{ eliminacion.usuario_eliminacion }}</p>
+                            <p>Fecha de alta: {{ eliminacion.fecha_eliminacion }}</p>
+                            <p>Motivo modificacion: {{ eliminacion.motivo_eliminacion }}</p>
+                            <strong>Usuario anterior: </strong>{{ eliminacion.usuario_ant }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="text-center mt-3">
+                    <a class="btn btn-primary font-weight-bold" href="{% url 'abm' %}" style="width: 145px;">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio de sesion {% endblock%}
+
+{% block contenido %}
+
+
+<div class="center" style="width: 800px;"> 
+    <h1>Usuario: {{ usuario.nombre }} </h1>
+    <div class="d-inline-flex justify-content-center align-items-center text-center my-3 m-3">
+        <a class="btn btn-secondary font-weight-bold" href="" style="width: 112px;">Asignar PC escritorio</a>
+    </div>
+    <div class="d-inline-flex justify-content-center align-items-center text-center my-3m-3">
+        <a class="btn btn-secondary font-weight-bold" href="" style="width: 112px;">Asignar Notebook</a>
+    </div>
+    <div class="d-inline-flex justify-content-center align-items-center text-center my-3 m-3">
+        <a class="btn btn-secondary font-weight-bold" href="" style="width: 112px;">Asignar Telefono</a>
+    </div>
+    <div class="d-inline-flex justify-content-center align-items-center text-center my-3 m-3">
+        <a class="btn btn-secondary font-weight-bold" href="" style="width: 112px;">Asignar Impresora</a>
+    </div>
+</div>
+
+<a class="btn btn-primary font-weight-bold" href="{% url 'inicio' %}" style="width: 145px;">Volver a Inicio</a>
+
+<div class="center" style="width: 880px;">
+
+
+</div>
+
+<style>
+    .center {
+        margin: auto;
+        text-align: center;
+    }
+</style>
+
+
+
+{% endblock %}

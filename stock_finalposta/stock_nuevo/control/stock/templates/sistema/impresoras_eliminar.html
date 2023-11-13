@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block titulo %} Baja de impresora{% endblock%}
+
+{% block contenido %}
+
+<style>
+  .card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .card-header {
+    background-color: #eaeaea;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    margin: 0;
+    color: #333;
+  }
+
+  .form-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-container input[type="text"],
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .form-wrapper {
+    text-align: center;
+  }
+
+  .form-wrapper .btn {
+    margin-right: 10px;
+  }
+</style>
+
+<div class="card">
+  <div class="card-header">
+    <center><h5 class="card-title">Dar de baja impresora</h5></center>
+  </div>
+  <div class="card-body">
+        <div class="form-wrapper">
+      <div class="form-container">
+       <center> <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div style="text-align: center; margin-top: 20px;">
+            <input class="btn btn-secondary" type="button" value="Volver" onclick="history.back()" />
+            <button type="submit" class="btn btn-danger">Dar de baja</button>
+          </div></center>
+        </form>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+
+
+{% endblock %}

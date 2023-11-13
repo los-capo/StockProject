@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block titulo %} AUTOROUTE {% endblock%}
+{% load static %}
+{% block contenido %}
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: moveInTop 1s ease-out;
+    margin: 10px; 
+  }
+
+  .row {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+  }
+
+  .mx-2 {
+    margin: 10px;
+  }
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  
+  }
+  a{
+    text-decoration:none;
+    color:black;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var navLinks = document.getElementsByClassName('nav-link');
+
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener('click', function() {
+        var currentActiveLink = document.querySelector('.nav-link.active');
+
+        if (currentActiveLink) {
+          currentActiveLink.classList.remove('active');
+        }
+
+        this.classList.add('active');
+      });
+    }
+  });
+</script>
+
+<div class="text-center">
+<h3><span style="color:red;"> CITROEN BSAS </span></h3>
+<input class="btn btn-secondary" style="font-size:16px" type="button" value="Volver" name="volver atras2"onclick="history.back()" />
+</div>
+
+<div class="dropdown" style =" margin-left:90%;">
+  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    AREAS
+  </button>
+  <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'ADMPOSTVENTA' company='AUTOROUTE' %}">ADM POST VENTA</a></li>
+      <li><a class="dropdown-item" href="{% url 'ADMVENTAS' company='AUTOROUTE' %}">ADM VENTAS</a></li>
+      <li><a class="dropdown-item" href="{% url 'ADMVENTASPLANES' company='AUTOROUTE' %}">ADM VENTAS PLANES</a></li>
+      <li><a class="dropdown-item" href="{% url 'ADMINISTRACION' company='AUTOROUTE' %}">ADMINISTRACION</a></li>
+      <li><a class="dropdown-item" href="{% url 'COMERCIAL' company='AUTOROUTE' %}">COMERCIAL</a></li>
+      <li><a class="dropdown-item" href="{% url 'CONTACTC' company='AUTOROUTE' %}">CONTACT C</a></li>
+      <li><a class="dropdown-item" href="{% url 'ENTREGASVN' company='AUTOROUTE' %}">ENTREGAS VN</a></li>
+      <li><a class="dropdown-item" href="{% url 'GERENTECOMERCIAL' company='AUTOROUTE' %}">GERENTE COMERCIAL</a></li>
+      <li><a class="dropdown-item" href="{% url 'MKT' company='AUTOROUTE' %}">MKT</a></li>
+      <li><a class="dropdown-item" href="{% url 'PLANDEAHORRO' company='AUTOROUTE' %}">PLAN DE AHORRO</a></li>
+      <li><a class="dropdown-item" href="{% url 'POSTVENTASERVICIOS' company='AUTOROUTE' %}">POST VENTA SERVICIOS</a></li>
+      <li><a class="dropdown-item" href="{% url 'PREENTYALISTAJEVN' company='AUTOROUTE' %}">PREENT Y ALISTAJE VN</a></li>
+      <li><a class="dropdown-item" href="{% url 'PREENTYALISTAJEVO' company='AUTOROUTE' %}">PREENT Y ALISTAJE VO</a></li>
+      <li><a class="dropdown-item" href="{% url 'REPUESTOS' company='AUTOROUTE' %}">REPUESTOS</a></li>
+      <li><a class="dropdown-item" href="{% url 'RRHH' company='AUTOROUTE' %}">RRHH</a></li>
+      <li><a class="dropdown-item" href="{% url 'SERVICIOSPV' company='AUTOROUTE' %}">SERVICIOS PV</a></li>
+      <li><a class="dropdown-item" href="{% url 'SINCLASIFICAR' company='AUTOROUTE' %}">SIN CLASIFICAR</a></li>
+      <li><a class="dropdown-item" href="{% url 'SISTEMAS' company='AUTOROUTE' %}">SISTEMAS</a></li>
+      <li><a class="dropdown-item" href="{% url 'TALLER' company='AUTOROUTE' %}">TALLER</a></li>
+      <li><a class="dropdown-item" href="{% url 'VENTADIRECTA0KM' company='AUTOROUTE' %}">VENTA DIRECTA 0KM</a></li>
+      <li><a class="dropdown-item" href="{% url 'VENTADIRECTAVO' company='AUTOROUTE' %}">VENTA DIRECTA VO</a></li>
+    </ul>
+</div>
+
+
+
+<div class="table-responsive">
+  <ul class="nav justify-content-center" style="background-color: none; padding: 10px; border-radius: 5px;">
+    <li class="nav-1 nav-item">
+      <a class="link-1 nav-link" aria-current="page" href="#tabla-ailes" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">INFORMES</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" aria-current="page" href="#tabla-telefonos" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">TELEFONOS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-impresoras" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">IMPRESORAS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-notebooks" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">NOTEBOOKS</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-pcs" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">PC</a>
+    </li>
+    <li class="nav-1 nav-item" style="margin-right: 10px;">
+      <a class="link-1 nav-link" href="#tabla-activos" style="text-decoration: none; color: #333; font-weight: bold; padding: 3px 8px; border-radius: 0px; font-size: 14px;">ACTIVOS</a>
+    </li>
+  </ul>
+
+
+<style>
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: #ddd;
+  }
+</style>
+
+
+<div id="tabla-ailes" class="tabla">
+
+  <hr>
+  <div class=" container d-flex justify-content-center align-items-center">
+    <div class="col-6 mx-2" style="border: 1px solid #d1cfcf; padding: 20px; background-color: white; box-shadow: 2px 3px 4px rgb(211, 209, 209);">
+      <h4 style="font-family: 'Reboto', sans-serif; font-weight: 300;">TOTAL DE EQUIPOS</h4>
+   
+      <table style="width: 100%; font-size: 14px;">
+        <tr>
+          <td ><img style="width: 3%; "src="{% static 'imagenes/Iconos/telefonoCelular.png' %}"><a style="vertical-align: middle;"> <strong>Total de Telefonos:</strong></a></td>
+          <td style="text-align: right;">{{ telefonoscont }}</td>
+        </tr>
+        <tr>
+          <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/Notebooknotebook.png' %}" alt="Icono 1"><a style="vertical-align: middle;"> <strong>Total de Notebooks:</strong></a></td>
+          <td style="text-align: right;">{{ notebookscont }}</td>
+        </tr>
+        <tr>
+          <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/PCpc.png' %}"><a style="vertical-align: middle;"> <strong>Total de PC:</strong></a></td>
+          <td style="text-align: right;">{{ pcscont }}</td>
+        </tr>
+        <tr>
+          <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/impresoraimpresora.png' %}"><a style="vertical-align: middle;"> <strong>Total de Impresoras:</strong></a></td>
+          <td style="text-align: right;" >{{ impresorascont }}</td>
+        </tr>
+        <tr>
+          <td><img style="width: 3%; "src="{% static 'imagenes/Iconos/tecladoteclado.png' %}"><a style="vertical-align: middle;"> <strong>Total de Activos:</strong></a></td>
+          <td  style="text-align: right;">{{ activoscont }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+ <div id="tabla-telefonos" class="tabla">
+  <div class="card">
+    <div class="m-2" style="text-align: center;">
+      Lista de Telefonos: {{ telefonoscont }}
+  </div>
+</div>
+  <div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+    <table class="table table-bordered" style="">
+        <thead>
+          <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">AREA</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NUMERO</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ACCESORIOS</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">EMPRESA ABONO</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;">PLAN</th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for telefono in page_obj %}
+          <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.usuario.nombre_apellido }}</td>
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.usuario.area }}</td>
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.numero }}</td>
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.accesorio }}</td>
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.empresa_abono }}</td>
+            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ telefono.plan }}</td> 
+            <td style="text-align: left; padding: 0; margin: 0;">
+              <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altastel' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+            </td>
+            <td style="text-align: center; padding: 0; margin: 0;">
+              <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_editar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+            </td>
+            <td style="text-align: center; padding: 0; margin: 0;">
+              <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_eliminar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+
+
+
+<div id="tabla-notebooks" class="tabla">
+<div class="card">
+  <div class="m-2" style="text-align: center;">
+    Lista de Notebooks: {{ notebookscont }}
+  </div>
+</div>
+<div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+  <table class="table table-bordered">
+      <thead>
+        <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">APELLIDO Y NOMBRE</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">AREA</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MARCA</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">PROCESADOR</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">RAM</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">DISCO</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MODELO</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for notebook in page_obj2 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.usuario.nombre_apellido }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.usuario.area }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.marca }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.procesador }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.ram }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.disco }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ notebook.modelo }}</td>
+          <td style="text-align: left; padding: 0; margin: 0;">
+            <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altasnote' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'notebooks_editar' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'notebooks_eliminar' notebook.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+</div>
+
+<div id="tabla-impresoras" class="tabla">
+<div class="card">
+  <div class="m-2" style="text-align: center;">
+    Lista de Impresoras: {{ impresorascont }}
+  </div>
+</div>
+<div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+  <table class="table table-bordered" style="">
+    <thead>
+      <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">APELLIDO Y NOMBRE</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">AREA</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">ESTADO</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">REPARABILIDAD</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">TIPO</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MODELO</th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+        <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for impresora in page_obj1 %}
+      <tr class="" style="background-color: white; font-size: 14px; line-width: 1; vertical-align: middle;">
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.usuario.nombre_apellido }}</td>
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.usuario.area }}</td>
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.estado }}</td>
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.reparabilidad }}</td>
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.tipo }}</td>
+        <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ impresora.modelo }}</td>
+        <td style="text-align: left; padding: 0; margin: 0;">
+           <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altas' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+        </td>
+        <td style="text-align: center; padding: 0; margin: 0;">
+           <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'impresoras_editar' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+        </td>
+        <td style="text-align: center; padding: 0; margin: 0;">
+           <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'impresoras_eliminar' impresora.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+<div id="tabla-pcs" class="tabla">
+<div class="card">
+  <div class="m-2" style="text-align: center;">
+    Lista de PCs: {{ pcscont }}
+  </div>
+</div>
+<div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+  <table class="table table-bordered">
+      <thead>
+        <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">APELLIDO Y NOMBRE</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">PROCESADOR</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">RAM</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">DISCO</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MONITOR</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">s/n</th> {% endcomment %}
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pc in page_obj3 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.usuario.nombre_apellido }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.procesador }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.ram }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.disco }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.monitor }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ pc.modelo }}</td>
+          <td style="text-align: left; padding: 0; margin: 0;">
+            <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altaspc' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'pcs_editar' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'pcs_eliminar' pc.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+</div>
+
+<div id="tabla-activos" class="tabla">
+<!-- Contenido de la tabla de Activos -->
+<div class="card">
+  <div class="m-2" style="text-align: center;">
+    Lista de Activos: {{ activoscont }}
+  </div>
+</div>
+<div class="table-responsive" style="max-height: 425px; overflow-y: auto;">
+  <table class="table table-bordered">
+      <thead>
+        <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">APELLIDO Y NOMBRE</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">AREA</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">ESTADO</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">REPARABILIDAD</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">TIPO</th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">MODELO</th>
+          {% comment %} <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto">SN</th> {% endcomment %}
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+          <th scope="col" style="text-align: center; font-size: 10px; padding:0;margin: 0;width: 0px; overflow-x: auto"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for activos in page_obj4 %}
+        <tr class="" style="background-color: white; font-size:14px; line-width; vertical-align: middle;">
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.usuario.nombre_apellido }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.usuario.area }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.estado }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.reparabilidad }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.tipo }}</td>
+          <td style="text-align: left; font-size: 10px; overflow-x: auto">{{ activos.modelo }}</td>
+          <td style="text-align: left; padding: 0; margin: 0;">
+            <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altasactivo' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'activos_editar' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+          </td>
+          <td style="text-align: center; padding: 0; margin: 0;">
+            <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'activos_eliminar' activos.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+</div>
+
+<script>
+function ocultarTablas() {
+  var tablas = document.getElementsByClassName("tabla");
+  for (var i = 0; i < tablas.length; i++) {
+    tablas[i].style.display = "none";
+  }
+}
+
+function mostrarTabla(idTabla) {
+  ocultarTablas();
+  var tabla = document.getElementById(idTabla);
+  if (tabla) {
+    tabla.style.display = "block";
+  }
+}
+
+var enlaces = document.getElementsByClassName("link-1");
+for (var i = 0; i < enlaces.length; i++) {
+  enlaces[i].addEventListener("click", function(event) {
+    event.preventDefault();
+    var href = this.getAttribute("href");
+    mostrarTabla(href.substring(1));
+  });
+}
+
+ocultarTablas();
+mostrarTabla("tabla-ailes");
+</script>
+
+{% endblock %}
+
+
+

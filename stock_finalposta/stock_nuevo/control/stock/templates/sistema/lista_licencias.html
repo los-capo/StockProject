@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de licencias {% endblock%}
+
+{% block contenido %}
+
+{% load static %}
+</br>
+</br>
+<div class="container">
+<center><h3  style="font-family: 'Roboto', sans-serif; font-weight: 300;"> CARGAR LICENCIA <h3><center>
+
+    <div class="btn-group mt-5" style="display: flex; flex-direction: column; align-items: center;">
+        <a class="btn btn-outline-secondary" href="{% url 'licencia' usuario.id %}" style="width: 200px; height: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+            Microsoft Office
+        </a>
+        <a class="btn btn-outline-secondary" href="" style="width: 200px; height: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+            Xpansiva
+        </a>
+        <a class="btn btn-outline-secondary" href="" style="width: 200px; height: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+            Oversoft
+        </a>
+    </div>
+</div>
+
+{% endblock %}

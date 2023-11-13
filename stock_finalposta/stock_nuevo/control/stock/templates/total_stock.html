@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block titulo %} Stock total {% endblock%}
+
+{% block contenido %}
+
+<div class="table-responsive" id="tabla-empresas" style=" max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-empresas">Mostrar/ocultar Empresas</button>
+    <table class="table table-bordered" style="">
+        <thead>
+            <tr style="background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+                <th scope="col" style="text-align: center;">NOMBRE</th>
+                <th scope="col" style="text-align: center;">SUCURSAL</th>
+                <th scope="col" style="text-align: center;"></th>
+                <th scope="col" style="text-align: center;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empresa in empresas %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+                <td style="text-align: left; font-weight: bold;">{{ empresa.nombre }}</td>
+                <td style="text-align: left; font-weight: bold;">{{ empresa.sucursal }}</td>
+                <td style="text-align: center; padding: 2px; width: 60px;">
+                    <a class="btn btn-outline-secondary" href="{% url 'empresas_eliminar' empresa.id %}">Eliminar</a>
+                </td>
+                <td style="text-align: center; padding: 2px; width: 60px;">
+                    <a class="btn btn-outline-secondary" href="{% url 'empresas_editar' empresa.id %}">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" id="tabla-usuarios" style="max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-usuarios">Mostrar/ocultar Usuarios</button>
+    <a class="btn btn-primary" href="{% url 'usuarios_crear' %}" style="">Agregar</a>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+            <th scope="col" style="text-align: center;">USUARIO</th>
+            <th scope="col" style="text-align: center;">APELLIDO</th>
+            <th scope="col" style="text-align: center;">AREA</th>
+            <th scope="col" style="text-align: center;">CARGO</th>
+            <th scope="col" style="text-align: center;">SUCURSAL</th>
+            <th scope="col" style="text-align: center;">EMPRESA</th>
+            <th scope="col" style="text-align: center;">LEGAJO</th>
+            <th scope="col" style="text-align: center;">RAZON SOCIAL</th>
+            <th scope="col" style="text-align: center;">DNI</th>
+            <th scope="col" style="text-align: center;">CATEGORIA CTT</th>
+            <th scope="col" style="text-align: center;">CCO</th>
+            <th scope="col" style="text-align: center;">LUGAR TRABAJO</th>
+            <th scope="col" style="text-align: center;">LAB_LPG</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: left; font-weight: bold;">{{ usuario.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ usuario.apellido }}</td>
+              <td style="text-align: left; ">{{ usuario.area }}</td>
+              <td style="text-align: left; ">{{ usuario.cargo }}</td>
+              <td style="text-align: left; ">{{ usuario.empresa.sucursal }}</td>
+              <td style="text-align: left; ">{{ usuario.empresa.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;"></td>
+              <td style="text-align: left; font-weight: bold;"></td>
+              <td style="text-align: left; font-weight: bold;"></td>
+              <td style="text-align: left; "></td>
+              <td style="text-align: left; "></td>
+              <td style="text-align: left; "></td>
+              <td style="text-align: left; "></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" id="tabla-impresoras" style=" max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-impresoras">Mostrar/ocultar Impresoras</button>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+            <th scope="col" style="text-align: center;">TIPO</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            <th scope="col" style="text-align: center;">ABONO</th>
+            <th scope="col" style="text-align: center;">EMPRESA</th>
+            <th scope="col" style="text-align: center;">USUARIO</th>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;"></th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for impresoras in impresoras %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: left; font-weight: bold;">{{ impresoras.tipo }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ impresoras.modelo }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ impresoras.abono }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ impresoras.empresa.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ impresoras.usuario.nombre }}</td>
+              <td style="text-align: center; padding: 2px; width: 60px;">
+                <a class="btn btn-outline-secondary" href="{% url 'impresoras_eliminar' impresoras.id %}">Eliminar</a>
+              </td>
+              <td style="text-align: center; padding: 2px; width: 60px;">
+                <a class="btn btn-outline-secondary" href="{% url 'impresoras_editar' impresoras.id %}">Editar</a>
+              </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" id="tabla-notebooks" style=" max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-notebooks">Mostrar/ocultar Notebooks</button>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+            <th scope="col" style="text-align: center;">MARCA</th>
+            <th scope="col" style="text-align: center;">PROCESADOR</th>
+            <th scope="col" style="text-align: center;">RAM</th>
+            <th scope="col" style="text-align: center;">DISCO</th>
+            <th scope="col" style="text-align: center;">MONITOR</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">USUARIO</th>
+            <th scope="col" style="text-align: center;">EMPRESA</th>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;"></th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for notebooks in notebooks %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.marca }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.procesador }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.ram }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.disco }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.monitor }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.modelo }}</td>
+              {% comment %} <td style="text-align: left; font-weight: bold;">{{ notebooks.sn }}</td> {% endcomment %}
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.usuario.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ notebooks.empresa.nombre }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" id="tabla-pcs" style=" max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-pcs">Mostrar/ocultar PC</button>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+            <th scope="col" style="text-align: center;">PROCESADOR</th>
+            <th scope="col" style="text-align: center;">DISCO</th>
+            <th scope="col" style="text-align: center;">MONITOR</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            {% comment %} <th scope="col" style="text-align: center;">SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">EMPRESA</th>
+            <th scope="col" style="text-align: center;">USUARIO</th>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;"></th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for pcs in pcs %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: left; font-weight: bold;">{{ pcs.procesador }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ pcs.disco }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ pcs.monitor }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ pcs.modelo }}</td>
+              {% comment %} <td style="text-align: left; font-weight: bold;">{{ pcs.sn }}</td> {% endcomment %}
+              <td style="text-align: left; font-weight: bold;">{{ pcs.empresa.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ pcs.usuario.nombre }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" id="tabla-telefonos" style=" max-height: 425px; overflow-y: auto; ">
+    <button class="btn btn-primary toggle-table" id="toggle-tabla-telefonos">Mostrar/ocultar Telefonos</button>
+    <table class="table table-bordered" style="">
+      <thead>
+        <tr style=" background-color: rgb(164, 164, 164); font-size:14px;color:rgb(0, 0, 0);overflow-x: auto;">
+            <th scope="col" style="text-align: center;">NUMERO</th>
+            <th scope="col" style="text-align: center;">MODELO</th>
+            <th scope="col" style="text-align: center;">MARCA</th>
+            <th scope="col" style="text-align: center;">FECHA ENTRADA</th>
+            {% comment %} <th scope="col" style="text-align: center;">IMEI O SN</th> {% endcomment %}
+            <th scope="col" style="text-align: center;">ACCESORIO</th>
+            <th scope="col" style="text-align: center;">PLAN</th>
+            <th scope="col" style="text-align: center;">EMPRESA ABONO</th>
+            <th scope="col" style="text-align: center;">COSTO PLAN</th>
+            <th scope="col" style="text-align: center;">USUARIO</th>
+            <th scope="col" style="text-align: center;">EMPRESA</th>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;"></th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for telefonos in telefonos %}
+            <tr class="" style="font-size:14px; line-width; vertical-align: middle;">
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.numero }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.modelo }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.marca }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.fecha_entrada }}</td>
+              {% comment %} <td style="text-align: left; font-weight: bold;">{{ telefonos.imei_o_sn }}</td> {% endcomment %}
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.accesorio }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.plan }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.empresa_abono }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.costo_plan }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.usuario.nombre }}</td>
+              <td style="text-align: left; font-weight: bold;">{{ telefonos.empresa.nombre }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-empresas").click(function(){
+            $("#tabla-empresas table").toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-usuarios").click(function(){
+            $("#tabla-usuarios table").toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-impresoras").click(function(){
+            $("#tabla-impresoras table").toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-notebooks").click(function(){
+            $("#tabla-notebooks table").toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-pcs").click(function(){
+            $("#tabla-pcs table").toggle();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#toggle-tabla-telefonos").click(function(){
+            $("#tabla-telefonos table").toggle();
+        });
+    });
+</script>
+
+<style>
+    .toggle-table {
+        margin-bottom: 10px;
+        }
+</style>
+{% endblock %}

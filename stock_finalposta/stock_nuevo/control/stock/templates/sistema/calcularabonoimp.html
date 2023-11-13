@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block titulo %} Abonos {% endblock%}
+
+{% block contenido %}
+
+{% load static %}
+
+<style>
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: moveInTop 1s ease-out;
+    margin: 30px;
+   
+  }
+  
+
+  .row {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-wrap: wrap;
+  }
+
+
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  
+  }
+  .black-placeholder::placeholder {
+    color: black;
+  }
+  a{
+    text-decoration:none;
+    color:black;
+  }
+</style>
+<style>
+    .table-container {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table-container th, .table-container td {
+        padding: 5px 10px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    .table-container th {
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .table-container td:first-child {
+        position: relative;
+    }
+
+    .divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 2px;
+        background-color: black;
+        transform: translateX(-50%);
+    }
+
+    .tel-number {
+        font-size: 14px;
+        text-align: right;
+    }
+</style>
+
+
+<div class="d-flex justify-content-between">
+    <a class="btn btn-secondary font-weight-bold" href="{% url 'reportes_total' %}" style="width: 65px; font-size:12px">Volver</a>
+        <form style="" action="{% url 'calcularabonoimp' %}" method="get" class="form-inline">
+          <div class="input-group" style="max-width: 250px; width: 90%;">
+            <select class="form-control form-control-sm " id="lablpg" name="lablpg">
+            <option value="" selected disabled >Selecciona una sucursal</option>
+            <option value="IQSA CORDOBA">IQSA CORDOBA</option>
+            <option value="AUTOROUTE">AUTOROUTE</option>
+            <option value="AVENUE ROSARIO">AVENUE ROSARIO</option>
+            <option value="AILES CABA">AILES CABA</option>
+            <option value="AVENUE CORDOBA">AVENUE CORDOBA</option>
+            <option value="AMSA MOTORRAD">AMSA MOTORRAD</option>
+            <option value="AMSA BMW">AMSA BMW</option>
+            <option value="AMSA MINI">AMSA MINI</option>
+            <option value="CHEVENT VENADO TUERTO">CHEVENT VENADO TUERTO</option>
+            <option value="AVENUE DS">AVENUE DS</option>
+            <option value="CHEVENT SALADILLO">CHEVENT SALADILLO</option>
+            <option value="VOLANT URQUIZA">VOLANT URQUIZA</option>
+            <option value="VOLANT CENTRAL">VOLANT CENTRAL</option>
+          </select>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary btn-sm ">
+              <span class="material-symbols-outlined  " style="color:grey;">search</span>
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+
+<div class="row" style="--bs-gutter-x: 0.8rem;">
+<div class="col-md-3">
+    <!-- Primera tabla -->
+    <div id="tabla-ailes" class="card mt-2">
+        <div class="card-header" style="text-align: center;">
+            <h6 style="">Impresoras alquiladas</h6>
+        </div>
+        <div class="table-responsive table-container" style="height: 330px; overflow-y: auto;">
+            <table style="width: 100%; font-size: 11px; font-weight: 100%;">    
+    <tbody>
+        <tr>
+            <td>IQSA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_iqsa }}</td>
+        </tr>
+        <tr>
+            <td>CHEVENT SALADILLO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_chevent_saladillo }}</td>
+        </tr>
+        <tr>
+            <td>AUTOROUTE:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_autoroute }}</td>
+        </tr>
+        <tr>
+            <td>AVENUE CORDOBA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_avenue_cba }}</td>
+        </tr>
+        <tr>
+            <td>VOLANT URQUIZA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_volant_urquiza }}</td>
+        </tr>
+        <tr>
+            <td>AMSA BMW:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_bmw }}</td>
+        </tr>
+        <tr>
+            <td>CHEVENT VENADO TUERTO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_chevent_vt }}</td>
+        </tr>
+        <tr>
+            <td>VOLANT CENTRAL:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_volant_central }}</td>
+        </tr>
+        <tr>
+            <td>DS:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_ds }}</td>
+        </tr>
+        <tr>
+            <td>AVENUE ROSARIO:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_avenue_rosario }}</td>
+        </tr>
+        <tr>
+            <td>AILES CABA:<div class="divider"></div></td>
+            <td style="text-align: right;">{{ imp_ailes }}</td>
+        </tr>
+    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    <div class="col-md-9">
+        <!-- Segunda tabla -->
+        <div class="card mt-2">
+            <div class="card-header" style="text-align: center;">
+                Lista de impresoras: {{ cant_impresoras }} Precio total con IVA: ${{ total_abonos_con_separadores }}
+            </div>
+            <div class="table-responsive" style="max-height: 330px; overflow-y: auto;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="background-color: rgb(240, 240, 240); font-size:12px; color:rgb(0, 0, 0);">
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;">NOMBRE</th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;">AREA</th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;">IMPRESORA</th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;">PLAN</th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;"></th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;"></th>
+                            <th scope="col" style="text-align: center; font-size: 11px; overflow-x: auto;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for impresoras in page_obj_impresoras %}
+                        <tr class="align-middle" style="background-color: white;  font-size:9px;">
+                            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ impresoras.usuario.nombre_apellido }}</td>
+                            <td style="text-align: left; font-size: 100x; overflow-x: auto;">{{ impresoras.usuario.area }}</td>
+                            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ impresoras.modelo }}</td>
+                            <td style="text-align: left; font-size: 10px; overflow-x: auto;">{{ impresoras.plan}}</td>
+                            <td style="text-align: left; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altas' impresoras.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+                            </td>
+                            <td style="text-align: center; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'impresoras_editar' impresoras.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+                            </td>
+                            <td style="text-align: center; padding: 0; margin: 0;">
+                                <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'impresoras_eliminar' impresoras.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+   </div>
+
+{% endblock %} 

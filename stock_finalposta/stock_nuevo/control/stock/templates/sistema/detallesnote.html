@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}Bajas{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1>Detalles de la Notebook</h1>
+                <p>MARCA: {{ notebook.marca }} - PROCESADOR: {{ notebook.procesador }} - Fecha de entrada: {{ notebook.fecha_entrada }} - Estado: {{ notebook.estado }}</p>
+
+                {% if eliminacion %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Informacion de la Ultima Alta</h2>
+                            <p>Asignado a: {{ eliminacion.notebook.usuario.nombre_apellido }}</p>
+                            <p>Usuario que realizo el cambio: {{ eliminacion.usuario_eliminacion }}</p>
+                            <p>Fecha de alta: {{ eliminacion.fecha_eliminacion }}</p>
+                            <p>Motivo modificacion: {{ eliminacion.motivo_eliminacion }}</p>
+                            <strong>Usuario anterior: </strong>{{ eliminacion.usuario_ant }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="text-center mt-3">
+                    <a class="btn btn-primary font-weight-bold" href="{% url 'abm' %}" style="width: 145px;">Volver</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

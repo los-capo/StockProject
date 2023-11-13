@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block titulo %} Listar telefonos {% endblock%}
+
+{% block contenido %}
+<div class="">
+  <div class="row">
+  <div class="col">
+    <a class="btn btn-secondary font-weight-bold" href="{% url 'inicio' %}" style="width: 75px; font-size:10px">Volver</a>
+    <div class="d-flex justify-content-center">
+      <form action="{% url 'telefonos_listar' %}" method="get" class="form-inline">
+        <div class="input-group" style="max-width: 300px;">
+          <input type="text" name="buscartel" placeholder="Buscar..." class="form-control form-control-sm">
+          <input type="text" name="otrofiltro" placeholder="Buscar..." class="form-control form-control-sm" style="background-color:white;">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary btn-sm ">
+              <span class="material-symbols-outlined" style="color:grey;">search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+ 
+      <form action="{% url 'telefonos_listar' %}" method="get" class="form-inline">
+        <div class="input-group" style="max-width: 300px;">
+          {% comment %} <input type="text" placeholder="Sucursal:" class="form-control form-control-sm " disabled> {% endcomment %}
+          <select class="form-control form-control-sm " id="buscartel" name="buscartel">
+            <option value="" selected disabled >Selecciona una sucursal</option>
+            <option value="IQSA CORDOBA">IQSA CORDOBA</option>
+            <option value="AUTOROUTE">AUTOROUTE</option>
+            <option value="AVENUE ROSARIO">AVENUE ROSARIO</option>
+            <option value="AILES CABA">AILES CABA</option>
+            <option value="AVENUE CORDOBA">AVENUE CORDOBA</option>
+            <option value="AMSA MOTORRAD">AMSA MOTORRAD</option>
+            <option value="AMSA BMW">AMSA BMW</option>
+            <option value="AMSA MINI">AMSA MINI</option>
+            <option value="CHEVENT VENADO TUERTO">CHEVENT VENADO TUERTO</option>
+            <option value="AVENUE DS">AVENUE DS</option>
+            <option value="CHEVENT SALADILLO">CHEVENT SALADILLO</option>
+            <option value="VOLANT URQUIZA">VOLANT URQUIZA</option>
+            <option value="VOLANT CENTRAL">VOLANT CENTRAL</option>
+          </select>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary btn-sm ">
+              <span class="material-symbols-outlined  " style="color:grey;">search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <form action="{% url 'telefonos_listar' %}" method="get" class="form-inline ">
+        <div class="input-group" style="max-width: 300px;">
+          {% comment %} <input type="text" placeholder="Sucursal:" class="form-control form-control-sm " disabled> {% endcomment %}
+          <select class="form-control form-control-sm " id="buscartel" name="buscartel">
+            <option value="" selected disabled >Selecciona una razon social</option>
+            <option value="AMSA">PERSONAL - AMSA</option>
+            <option value="AVENUE">PERSONAL - AVENUE</option>
+            <option value="VOLANT">PERSONAL - VOLANT</option>
+            <option value="IQSA">PERSONAL - IQSA</option>
+            <option value="CHEVENT">CLARO - CHEVENT</option>
+            <option value="AILES">CLARO - AILES</option>
+            <option value="AUTOROUTE">CLARO - AUTOROUTE</option>
+            <option value="CLAROAVENUECBA">CLARO - AVENUE CORDOBA</option>
+          </select>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary btn-sm ">
+              <span class="material-symbols-outlined  " style="color:grey;">search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="card" >
+  <div class="card-header" style="text-align: center; font-size: 14px">
+    Lista de telefonos: {{ contador }} - {{buscar_query}}
+</div>
+  <div class="table-responsive" style=" max-height: 340px; overflow-y: auto;">
+      <table class="table table-bordered">
+        <thead>
+          <tr style=" background-color: rgb(240, 240, 240); font-size:14px;color:rgb(0, 0, 0); width: 0px;">
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 100px; overflow-x: auto;">APELLIDO Y NOMBRE</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">AREA</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">NUMERO</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">ACCESORIOS</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;">EMPRESA ABONO</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 150px; overflow-x: auto;">PLAN</th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+            <th scope="col" style="text-align: center; font-size: 11px; padding:0;margin: 0;width: 0px; overflow-x: auto;"></th>
+          </tr>
+      </thead>
+          <tbody>
+              {% for telefono in telefonos %}
+             <tr class="" style="background-color: white; font-size:10px;">
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.usuario.nombre_apellido }}</td>
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.usuario.area }}</td>
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.numero }}</td>
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.accesorio }}</td>
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.empresa_abono }}</td>
+                <td style="text-align: left; font-size: 9px; overflow-x: auto;">{{ telefono.plan }}</td> 
+                <td style="text-align: left; padding: 0; margin: 0;">
+                    <a class="btn btn-outline-primary" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'altastel' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">search</span></a>
+                </td>
+                <td style="text-align: center; padding: 0; margin: 0;">
+                    <a class="btn btn-outline-success" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_editar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">edit</span></a>
+                </td>
+                <td style="text-align: center; padding: 0; margin: 0;">
+                    <a class="btn btn-outline-danger" style="padding: 0; margin: 0; width: 100%; display: block;" href="{% url 'telefonos_eliminar' telefono.id %}"><span class="material-symbols-outlined" style="padding: 0; margin: 0;">delete</span></a>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <div style="margin-left:auto; margin-top:10px;" class="d-flex justify-content-end">
+        {% if page_obj_usuarios.has_previous or page_obj_usuarios.has_next %}
+          <form action="{% url 'telefonos_listar' %}" method="get">
+            <ul class="pagination">
+              {% if page_obj_usuarios.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj_usuarios.previous_page_number }}&buscartel={{ request.GET.buscartel }}">Anterior</a></li>
+              {% endif %}
+              <li class="page-item">
+                <input type="number" name="page" min="1" max="{{ paginator.num_pages }}" value="{{ page_obj_usuarios.number }}" class="form-control" style="width: 90px;">
+              </li>
+              <li class="page-item">
+                <button type="submit" class="btn btn-secondary">Ir</button>
+              </li>
+              {% if page_obj_usuarios.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj_usuarios.next_page_number }}&buscartel={{ request.GET.buscartel }}">Siguiente</a></li>
+              {% endif %}
+            </ul>
+            <input type="hidden" name="buscartel" value="{{ request.GET.buscartel }}">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+<hr>
+<div class="form-group row text-center">
+  <div class="col-md-12">
+    <a href="{% url 'descargar_excel' %}?q={{ request.GET.q }}&buscartel={{ request.GET.buscartel }}&otrofiltro={{ request.GET.otrofiltro }}" class="btn btn-success">Descargar Excel</a>
+  </div>
+</div>
+</div>
+
+{% endblock %}

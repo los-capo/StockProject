@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<h1 class="display-4">Editar Usuario</h1>
+<form method="POST" class="mt-4">
+  {% csrf_token %}
+  
+  <!-- Campos del formulario de edicion -->
+  
+  <!-- Campo de PC -->
+  <div class="form-group">
+    <label for="id_pc">PC:</label>
+    <select name="pc" id="id_pc" class="form-control">
+      {% if pcs %}
+        {% for pc in pcs %}
+          <option value="{{ pc.id }}">{{ pc.modelo }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="" disabled selected>No hay PC asignada</option>
+      {% endif %}
+    </select>
+  </div>
+  
+  <!-- Campo de Telefono -->
+  <div class="form-group">
+    <label for="id_telefono">Telefono:</label>
+    <select name="telefono" id="id_telefono" class="form-control">
+      {% if telefonos %}
+        {% for telefono in telefonos %}
+          <option value="{{ telefono.id }}">{{ telefono.numero }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="" disabled selected>No hay telefono asignado</option>
+      {% endif %}
+    </select>
+  </div>
+  
+  <!-- Campo de Impresora -->
+  <div class="form-group">
+    <label for="id_impresora">Impresora:</label>
+    <select name="impresora" id="id_impresora" class="form-control">
+      {% if impresoras %}
+        {% for impresora in impresoras %}
+          <option value="{{ impresora.id }}">{{ impresora.modelo }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="" disabled selected>No hay impresora asignada</option>
+      {% endif %}
+    </select>
+  </div>
+  
+  <!-- Campo de Notebook -->
+  <div class="form-group">
+    <label for="id_notebook">Notebook:</label>
+    <select name="notebook" id="id_notebook" class="form-control">
+      {% if notebooks %}
+        {% for notebook in notebooks %}
+          <option value="{{ notebook.id }}">{{ notebook.sn }}</option>
+        {% endfor %}
+      {% else %}
+        <option value="" disabled selected>No hay notebook asignada</option>
+      {% endif %}
+    </select>
+  </div>
+  
+  <!-- Boton de enviar el formulario -->
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+  
+   
+
+{% endblock %}

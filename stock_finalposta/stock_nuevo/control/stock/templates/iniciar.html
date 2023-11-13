@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
+    
+   {% comment %}  GOOGLE FONTS LINKS {% endcomment %}
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Montserrat&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+   
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300&family=Inter:wght@300&family=Montserrat:wght@200;400&family=Open+Sans:wght@300&family=Roboto&display=swap" rel="stylesheet">
+   
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  {% comment %} font awesome {% endcomment %}
+  <link rel="stylesheet" href="ruta/font-awesome.min.css">
+  <script src="ruta/font-awesome.min.js"></script>
+  
+
+   {% comment %} BOOTSTRAP LINK {% endcomment %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+{% load static %}
+</head>
+<body>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+  
+    .background-container {
+      background-color: #1A1B39;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .background-container img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  
+    .login-wrapper {
+      background-image: url('{% static "imagenes/Inicio_Fondo.png" %}');
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      width: 50%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+  
+    .login-container label,
+    .login-container input {
+      color: black;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+    }
+  
+    .login-container input {
+      background-color: rgb(196, 192, 192);
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+      
+    }
+  
+    .login-container button {
+      border: 2px solid rgb(71, 71, 71);
+      padding: 5px 15px;
+      border-radius: 20px;
+      background-color: rgb(71, 71, 71);
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+  
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInAnim 3s ease forwards;
+    }
+  
+    @keyframes fadeInAnim {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    @media (max-width: 1366px) {
+        .background-container {
+          display: none;
+        }
+  
+        .login-container {
+          width: 80%; /
+        }
+  
+        .login-container label,
+        .login-container input,
+        .login-container button {
+          font-size: 10px;
+        }
+      }
+      
+    }
+  </style>
+  
+  <div class="background-container" style="flex-direction: column; align-items: center; justify-content: flex-start;">
+    <h2 style="color: white; margin-top: 95px;">GESTION DE STOCK</h2>
+    <img src="{% static 'imagenes/Login_2.png' %}" alt="Imagen de fondo" class="img-fluid">
+  </div>
+
+
+  <div class="login-wrapper">
+    <div class="login-container fade-in">
+        <h6 class="mt-5 mb-3" style="font-size: 24px; font-weight: bold; text-decoration: underline;">LOGIN</h6>
+        {% if error %}
+        <div class="alert alert-danger">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+        <form action="/iniciar/" method="POST" class="d-flex flex-column align-items-center">
+            {% csrf_token %}
+            <div class="login-form mb-5 mt-3">
+                <label for="user" class="form-label">USER</label>
+                <input type="text" name="username" class="form-control" id="user" required>
+            </div>
+            <div class="login-form mb-4">
+                <label for="pass" class="form-label">PASSWORD</label>
+                <input type="password" name="password" class="form-control" id="pass" required>
+            </div>
+            <center><button type="submit" class="btn btn-secondary m-3 mt-4">SUBMIT</button></center>
+        </form>
+    </div>
+</div>
+
+
+  <script>
+    // Agrega la clase 'fade-in' al cargar la pagina
+    window.addEventListener('DOMContentLoaded', () => {
+      const loginContainer = document.querySelector('.login-container');
+      loginContainer.classList.add('fade-in');
+    });
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/b128214ed7.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

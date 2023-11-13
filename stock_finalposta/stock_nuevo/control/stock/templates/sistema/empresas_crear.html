@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Registrar empresa {% endblock%}
+
+{% block contenido %}
+<style>
+  .custom-label {
+    text-align: left;
+  }
+</style>
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Registrar una Empresa:</h5>
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label for="{{ form.nombre.id_for_label }}" class="col-md-2 mb-3 custom-label">Nombre:</label>
+        <div class="col-md-8">
+          {{ form.nombre }}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="{{ form.sucursal.id_for_label }}" class="col-md-2 mb-3 custom-label">Sucursal:</label>
+        <div class="col-md-8">
+          {{ form.sucursal }}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="{{ form.antiguedad.id_for_label }}" class="col-md-2 mb-3 custom-label">Antigüedad:</label>
+        <div class="col-md-8">
+          {{ form.antiguedad }}
+        </div>
+      </div>
+      <br>
+      <div class="form-group row text-center">
+        <div class="col-md-12">
+          <input class="btn btn-secondary"  type="button" value="Cancelar" onclick="history.back()" />
+          <button type="submit" class="btn btn-success" style="width: 145px;">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

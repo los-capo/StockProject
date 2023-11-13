@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio de sesion {% endblock%}
+
+{% block contenido %}
+{% load static %}
+<style>
+  .cuadrado {
+    width: 150px;
+    height: 100px;
+  }
+</style>
+<center> 
+      {% comment %} <h2 style="font-family: 'Montserrat', sans-serif;">Stock total</h2> {% endcomment %}
+    <div class="mx-2" style="border: 1px solid #ccc; padding: 20px; background-color: #f9f9f9;">
+        <h3 style="font-family: 'Montserrat', sans-serif;">Total de Equipos</h3>
+        <hr style="border-top: 1px solid #ccc;">
+        <center>
+        <table style="width: 100%; font-size: 14px;">
+          <tr>
+            <td style="width: 40%;"><strong>Total de Telefonos:</strong></td>
+            <td>{{ telefonos_count }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total de Notebooks:</strong></td>
+            <td>{{ notebooks_count }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total de PC:</strong></td>
+            <td>{{ pcs_count }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total de Impresoras:</strong></td>
+            <td>{{ impresoras_count }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total de Activos:</strong></td>
+            <td>{{ activos_count }}</td>
+          </tr>
+          <tr>
+            <td><strong>Total de Irreparables:</strong></td>
+            <td>{{ total_irre }}</td>
+          </tr>
+
+        </table>
+    
+      </div>
+      <br>
+      <div class="d-inline-flex ">
+        </style>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'usuarios_listar' %}">
+    Mostrar usuarios 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'impresoras_listar' %}">
+    Mostrar impresoras 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'notebooks_listar' %}">
+    Mostrar notebooks
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'telefonos_listar' %}">
+    Mostrar telefonos 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'pcs_listar' %}">
+    Mostrar PC escritorio 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="{% url 'activos_listar' %}">
+    Mostrar los activos 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>
+
+<div class="mx-2 cuadrado">
+  <a class="btn btn-outline-secondary" href="">
+    Mostrar Bienes de uso 
+    <i class="fas fa-eye ml-2"></i>
+  </a>
+</div>    
+</center>
+<div style="text-align: center;">
+    <a class="btn btn-secondary font-weight-bold mt-3" href="{% url 'reportes_total' %}" style="width: 145px; font-size: 14px;">Volver</a>
+    
+  </div>
+  
+       
+{% endblock %}  

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alta PC{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="card col-md-8 offset-md-2">
+            <h3  style="color:#830e0eea;">Detalles de la PC</h3>
+            <hr>
+            <p><strong>Modelo: </strong>{{ pc.modelo }} <br> <strong>Procesador: </strong>{{ pc.procesador}} <br> <strong>Fecha de entrada: </strong>{{pc.fecha_entrada}} <br> <strong>Estado: </strong>{{pc.estado}} <br><strong>Imei o S/N: </strong>{{ pc.sn }}</p>
+
+            {% if alta %}
+               
+            <h3 style="color:#830e0eea;">Informacion de la Ultima Alta</h3>
+            <hr>
+            <p><strong>Asignado a:  </strong>{{ alta.pc.usuario.nombre_apellido }} <br>
+            <strong>Area: </strong> {{ alta.pc.usuario.area }} <br>
+            <strong>Lugar de usuario: </strong> {{ alta.pc.usuario.lab_lpg }} <br>
+            <strong>Usuario que realizo el cambio: </strong>{{ usuario_alta }} <br>
+            <strong>Fecha de alta: </strong>{{ alta.fecha_alta }}</p>
+            <strong>Lugar: </strong>{{ alta.pc.lablpg}}</p>
+
+
+            {% endif %}
+
+            <div class="text-center mt-2 mb-2">
+                <a class="btn btn-secondary font-weight-bold" href="javascript:history.back()" style="width: 145px;">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

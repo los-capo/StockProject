@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block titulo %} ABM {% endblock%}
+
+{% block contenido %}
+{% load static %}
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: moveInTop 1s ease-out;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-group a {
+    margin: 10px;
+  }
+
+  @keyframes moveInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<br>
+<center><h3 style="font-family: 'Roboto', sans-serif; font-weight: 300;"> GESTION DE STOCK <h3><center>
+</br>
+<div class="container">
+  <div class="btn-group">
+    <a class="btn btn-outline-success" href="{% url 'usuarios_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar un usuario
+    </a>
+    <a class="btn btn-outline-success" href="{% url 'impresoras_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar impresoras
+    </a>
+    <a class="btn btn-outline-success" href="{% url 'notebooks_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar notebooks
+    </a>
+    <a class="btn btn-outline-success" href="{% url 'telefonos_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar telefonos
+    </a>
+    <a class="btn btn-outline-success" href="{% url 'pcs_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar PC
+    </a>
+    <a class="btn btn-outline-success" href="{% url 'activos_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar activos
+    </a>
+   <a class="btn btn-outline-success" href="{% url 'abono_crear' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+      <i class="fas fa-plus"></i> Agregar abono
+    </a>
+
+  </div>
+</div>
+
+  <br>
+
+<div class="container">
+  <div class="btn-group">
+  <a class="btn btn-outline-secondary" href="{% url 'usuarios_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar usuarios
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'impresoras_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar impresoras
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'notebooks_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar notebooks
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'telefonos_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar telefonos
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'pcs_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar PC
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'activos_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar activos
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'abono_listar' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar Abono de celulares
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'abono_listar_imp' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar Abono de impresoras
+  </a>
+  <a class="btn btn-outline-secondary" href="{% url 'abono_listar_off' %}" style="width: 105px; height: 105px; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-eye"></i> Mostrar licencias Office
+  </a>
+</div>
+</div>
+
+  <br>
+
+  <div class="d-flex justify-content-center align-items-center">
+    <a class="btn btn-secondary font-weight-bold" href="{% url 'inicio' %}" style="width: 145px;">Volver</a>
+</div>
+</div>
+
+<script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+      
+       
+{% endblock %}  

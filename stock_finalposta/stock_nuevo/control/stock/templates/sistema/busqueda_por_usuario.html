@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block titulo %} Busqueda por usuario {% endblock%}
+
+{% block contenido %}
+
+<h1>User Details</h1>
+<p>Nombre: {{ usuario.nombre_apellido }}</p>
+
+
+<h2>Phone Numbers:</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for telefono in telefonos %}
+      <tr>
+        <td>{{ telefono.numero }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

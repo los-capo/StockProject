@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block titulo %} Eliminar una empresa {% endblock%}
+
+{% block contenido %}
+
+<h2>Eliminar empresa</h2>
+<p>¿Esta seguro que desea eliminar el usuario {{ empresa }}?</p>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group row text-center">
+    <div class="col-md-12">
+      <a class="btn btn-primary font-weight-bold" href="{% url 'empresas_listar' %}" style="width: 145px;">Volver</a>
+      <input type="submit" class="btn btn-danger" style="width: 145px;" value="Eliminar">
+    </div>
+  </div>
+</form>
+
+{% endblock %}
