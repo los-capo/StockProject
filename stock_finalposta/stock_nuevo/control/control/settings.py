@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'control.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/control',
+        default='postgres://djangostockdb_user:cJCEun88w5L9KyHtnLRTqGvZM8SztDrM@dpg-cl9p3eto7jlc73fh3rcg-a.oregon-postgres.render.com/djangostockdb',
         conn_max_age=600
     )
 }
