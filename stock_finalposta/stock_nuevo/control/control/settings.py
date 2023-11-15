@@ -82,10 +82,7 @@ WSGI_APPLICATION = 'control.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://djangostockdb_user:cJCEun88w5L9KyHtnLRTqGvZM8SztDrM@dpg-cl9p3eto7jlc73fh3rcg-a.oregon-postgres.render.com/djangostockdb',
-        conn_max_age=600
-    )
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
